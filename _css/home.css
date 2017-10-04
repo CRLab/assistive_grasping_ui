@@ -1,0 +1,82 @@
+#camera-container {
+    background-image: url("/_assets/img/flowers.jpg");
+    background-size: cover;
+    width: calc(100% - 150px);
+    height: calc(100% - 40px);
+    float: right;
+}
+
+#status-bar {
+    background-color: var(--darkPurple);
+    width: 100%;
+    height: 40px;
+    position: relative;
+    z-index: 1;
+
+    -webkit-box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.91);
+    -moz-box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.91);
+    box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.91);
+}
+
+#menu-container  {
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    z-index: 2;
+}
+
+#menu-shadow {
+    height: calc(100% - 40px);
+    top: 40px;
+    width: 150px;
+    position: absolute;
+    z-index: 2;
+
+    -webkit-box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.91);
+    -moz-box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.91);
+    box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.91);
+}
+
+#page-title {
+    color: white;
+    text-align: center;
+    position: relative;
+    font-family: "Lato Light";
+    letter-spacing: 5px;
+    color: var(--lightPurple);
+    cursor: pointer;
+
+    /*vertical center*/
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#menu-injection {
+    height: calc(100% - 40px);
+    width: 150px;
+    position: relative;
+    z-index: 3;
+}
+
+#page-control {
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
+.page-control-button {
+    cursor: pointer;
+}
+
+.page-control-icon {
+    height: 20px;
+    width: 20px;
+
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

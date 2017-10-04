@@ -1,0 +1,13 @@
+{
+    "name": "grawson/assistive-grasping",
+    "authors": [
+        {
+            "name": "Gavi Rawson",
+            "email": "gavirawson@gmail.com"
+        }
+    ],
+    "require": {
+        "klein/klein": "^2.1",
+        "mustache/mustache": "^2.11"
+    }
+}

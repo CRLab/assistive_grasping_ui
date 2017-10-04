@@ -1,0 +1,42 @@
+.menu-content {
+    display: grid;
+    height: 100%;
+    grid-template-columns: auto;
+}
+
+.menu-content div {
+    position: relative;
+}
+
+.menu-button-outline {
+    cursor: pointer;
+}
+
+.menu-button-container {
+    height: 106px;
+    width: 106px;
+    opacity: 13%;
+
+    /*center x and y*/
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.menu-button-outline-hovered {
+    stroke: var(--lightPurple);
+    fill: transparent;
+    stroke-width: 2.2px;
+    opacity: 1;
+}
+
+text, .menu-button-icon, .menu-button-icon-hovered  {
+    pointer-events: none;
+}
+
+text {
+    display: none;
+    fill: var(--lightPurple);
+    font-family: "Lato Light";
+}

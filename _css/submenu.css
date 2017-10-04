@@ -1,0 +1,50 @@
+#submenu-button-text {
+    display: block;
+}
+
+#submenu-header {
+    height: 150px;
+}
+
+.submenu-button {
+    position: relative;
+    height: 100px;
+    cursor: pointer;
+}
+
+.submenu-button:hover > .submenu-hovered {
+    display: block;
+}
+
+.submenu-button-title-container {
+    position: relative;
+    width: calc(100% - 4px);
+    height: 100%;
+    float: right;
+}
+
+.submenu-button-title {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--lightPurple);
+    font-family: "Lato Light";
+    pointer-events: none;
+}
+
+.submenu-hovered {
+    display: none;
+    height: 100%;
+    width: 4px;
+    background-color: var(--lightPurple);
+    float: left;
+}
+
+.submenu-spacer {
+    position: relative;
+    height: 3px;
+    width: 100%;
+    background-color: black;
+    opacity: 0.2;
+}
