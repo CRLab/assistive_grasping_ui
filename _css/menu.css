@@ -36,7 +36,6 @@ text, .menu-button-icon, .menu-button-icon-hovered  {
 }
 
 text {
-    display: none;
     fill: var(--lightPurple);
     font-family: "Lato Light";
 }

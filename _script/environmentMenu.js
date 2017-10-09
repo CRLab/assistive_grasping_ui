@@ -8,10 +8,17 @@ function showEnvironmentMenu() {
         "menuItem": menuButtonTitles,
         "numMenuItems": menuButtonTitles.length
     };
-    var submenuData = {submenuItem: [0, 1, 2]};
+    var submenuData = {
+        "submenuItem": [
+            {"buttonTitle": "SUB1"},
+            {"buttonTitle": "SUB2"}
+        ]
+    };
+    
+    showMenu(menuMaskData, menuData, submenuData, function(id) {
+        console.log(id);
+    });}
 
-    showMenu(menuMaskData, menuData, submenuData);
-}
 
 
 $(document).ready(function() {
