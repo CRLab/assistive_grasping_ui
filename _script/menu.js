@@ -88,20 +88,26 @@ function toggleClickMenu(isOn) {
 // Setup menu button clicks
 function setupMenuButtonClick(submenuData, selectedEventCallback) {
     $(".menu-button-outline").click(function() {
-        var circleHeight = 100;
-        var selectedButton = $(this).parent().parent();
-        var animHeight = selectedButton.prevAll().length*selectedButton.height() +
-                         0.5 * selectedButton.height() -
-                         0.5 * circleHeight -
-                         25;
 
-        animating = true;
-        selectedButton.siblings().animate({
-            right: '150'
-        }, {
-            duration: 200,
-            complete: showSubmenu(selectedButton, animHeight, submenuData, selectedEventCallback)
-        });
+        // Ensure not clicking whil in binary mode
+        if (inputType == INPUTS.CLICK ||
+            ($(".menu-button-outline-hovered").attr("id")) ==  $(this).attr("id")) {
+
+            var circleHeight = 100;
+            var selectedButton = $(this).parent().parent();
+            var animHeight = selectedButton.prevAll().length*selectedButton.height() +
+                             0.5 * selectedButton.height() -
+                             0.5 * circleHeight -
+                             25;
+
+            animating = true;
+            selectedButton.siblings().animate({
+                right: '150'
+            }, {
+                duration: 200,
+                complete: showSubmenu(selectedButton, animHeight, submenuData, selectedEventCallback)
+            });
+        }
     });
 }
 
