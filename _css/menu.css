@@ -8,7 +8,8 @@
     position: relative;
 }
 
-.menu-button-outline {
+.menu-button {
+    z-index: 10;
     cursor: pointer;
 }
 
@@ -24,14 +25,14 @@
     transform: translate(-50%, -50%);
 }
 
-.menu-button-outline-hovered {
+.menu-button.hovered ~ .menu-button-outline {
+    display: block;
     stroke: var(--lightPurple);
-    fill: transparent;
     stroke-width: 2.2px;
     opacity: 1;
 }
 
-text, .menu-button-icon, .menu-button-icon-hovered  {
+text, .menu-button-icon, .menu-button-outline   {
     pointer-events: none;
 }
 

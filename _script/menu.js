@@ -1,9 +1,11 @@
+var BUTTON_CLASSES = [".menu-button", ".submenu-button"];
+var HOVERED_CLASS = "hovered";
+
+var currMenuClass = BUTTON_CLASSES[0];
 var animating = false;
 var loadingSubmenu = false;
 var numMenuOptions = -1;
 var currMenuOption = -1;
-var menuLayer = 1;   // The layer (depth) of the menu shown
-
 
 // Input types
 var INPUTS = {
@@ -19,21 +21,19 @@ var SELECT_KEY = 13;
 
 // turn on/off binary menu
 function toggleBinaryMenu(isOn) {
-    var buttonClass = menuLayer == 1 ? '.menu-button-outline' : '.submenu-button';
-
     if (isOn) {
         // Select binary menu item or first item in list
-        var currElement = $("#SMG");
+        var currElement = $("#sEMG");
         if (!currElement.length) { // checks existence
-            currElement = $(buttonClass).eq(0);
+            currElement = $(currMenuClass).eq(0);
         }
-        currElement.addClass("menu-button-outline-hovered");
+        currElement.addClass(HOVERED_CLASS);
 
         // Update Num menu options and get current menu option
         numMenuOptions = 0;
-        $(buttonClass).each(function(i) {
-            numMenuOptions += 1;
-            if ($(this).hasClass("menu-button-outline-hovered")) {
+        $(currMenuClass).each(function(i) {
+            numMenuOptions += 1;   // The currently hovered over menu option
+            if ($(this).hasClass(HOVERED_CLASS)) {
                 currMenuOption = i;
             }
          });
@@ -42,18 +42,18 @@ function toggleBinaryMenu(isOn) {
          $(window).keypress(function(e) {
              var key = e.which;
              if (key == DOWN_KEY) {
-                 $(buttonClass).eq(currMenuOption).removeClass("menu-button-outline-hovered");
+                 $(currMenuClass).eq(currMenuOption).removeClass(HOVERED_CLASS);
                  currMenuOption = (currMenuOption+1) % numMenuOptions;
-                 $(buttonClass).eq(currMenuOption).addClass("menu-button-outline-hovered");
+                 $(currMenuClass).eq(currMenuOption).addClass(HOVERED_CLASS);
              } else if (key == SELECT_KEY) {
-                  $(buttonClass).eq(currMenuOption).trigger("click");
+                  $(currMenuClass+"."+HOVERED_CLASS).trigger("click");
              }
          });
 
     } else {
         // Remove any selection
-        $(buttonClass).each(function(i) {
-            $(this).removeClass("menu-button-outline-hovered");
+        $(currMenuClass).each(function(i) {
+            $(this).removeClass(HOVERED_CLASS);
         });
 
         // Remove keypress listener
@@ -67,31 +67,28 @@ function toggleBinaryMenu(isOn) {
 
 // turn on/off click menu
 function toggleClickMenu(isOn) {
-    var buttonClass = menuLayer == 1 ? '.menu-button-outline' : '.submenu-button';
-
     if (isOn) {
         //enable hovering
-        $(buttonClass).hover(function() {    // mousin
-            $(this).addClass("menu-button-outline-hovered");
+        $(currMenuClass).hover(function() {    // mousin
+            $(this).addClass(HOVERED_CLASS);
         }, function() {    // mousout
             if (!animating) {
-                $(this).removeClass("menu-button-outline-hovered");
+                $(this).removeClass(HOVERED_CLASS);
             }
         });
     } else {
         // disable hovering
-        $(buttonClass).unbind('mouseenter mouseleave');
+        $(currMenuClass).unbind('mouseenter mouseleave');
     }
 }
 
 
 // Setup menu button clicks
 function setupMenuButtonClick(submenuData, selectedEventCallback) {
-    $(".menu-button-outline").click(function() {
-
-        // Ensure not clicking whil in binary mode
+    $(BUTTON_CLASSES[0]).click(function() {
+        // Ensure not clicking while in binary mode
         if (inputType == INPUTS.CLICK ||
-            ($(".menu-button-outline-hovered").attr("id")) ==  $(this).attr("id")) {
+            ($(BUTTON_CLASSES[0] + "." + HOVERED_CLASS).attr("id")) ==  $(this).attr("id")) {
 
             var circleHeight = 100;
             var selectedButton = $(this).parent().parent();
@@ -120,18 +117,18 @@ function showSubmenu(selectedButton, animHeight, submenuData, selectedEventCallb
         complete: function() {
 
             if (!loadingSubmenu) {
-                menuLayer = 2;
+                currMenuClass = BUTTON_CLASSES[1];
                 loadingSubmenu = true;
                 $.get('/_view/submenu.mustache', function(template) {
 
                     // Set title of selecte button in submenu
-                    submenuData.selectedMenuItem = $(".menu-button-outline-hovered").attr("id");
+                    submenuData.selectedMenuItem = $(BUTTON_CLASSES[0] + "." + HOVERED_CLASS).attr("id");
 
                     var rendered = Mustache.render(template, submenuData);
                     $('#menu-injection').html(rendered);
 
                     // Send callback message when menu option was clicked
-                    setupClickCallback(selectedEventCallback)
+                    setupClickCallback(selectedEventCallback);
 
                     // animate
                     $('.submenu-button, .submenu-spacer').css("left", "-150px");
@@ -156,6 +153,7 @@ function showMenu(menuMaskData, menuData, submenuData=null, selectedEventCallbac
     animating = false;
     loadingSubmenu = false;
     menuLayer = 1;
+    currMenuClass = BUTTON_CLASSES[0];
 
     // Load menu page control mask
     $.get('/_view/menuMask.mustache', function(template) {
@@ -177,18 +175,16 @@ function showMenu(menuMaskData, menuData, submenuData=null, selectedEventCallbac
         }
 
         // Send callback message when menu option was clicked
-        setupClickCallback(selectedEventCallback)
+        setupClickCallback(selectedEventCallback);
     });
 }
 
 
 // end callback id of clicked button
 function setupClickCallback(callback) {
-    var buttonClass = menuLayer == 1 ? '.menu-button-outline' : '.submenu-button';
-
     if (callback != null) {
         var buttonIDs = [];
-        $(buttonClass).each(function(i) {
+        $(currMenuClass).each(function(i) {
             buttonIDs.push($(this).attr('id'));
             $(this).click(function() {
                 callback(buttonIDs[i]);

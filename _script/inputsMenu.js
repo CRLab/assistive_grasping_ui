@@ -2,7 +2,7 @@ function showInputsMenu() {
     var menuMaskData = { "inputsMenuToggled": true };
     var menuButtonTitles = [
         {"menuButtonTitle": "MOUSE"},
-        {"menuButtonTitle": "SMG"}
+        {"menuButtonTitle": "sEMG"}
     ];
     var menuData = {
         "menuItem": menuButtonTitles,
@@ -14,7 +14,7 @@ function showInputsMenu() {
 
 
 function inputsMenuOptionSelected(id) {
-    if (id === "SMG") {
+    if (id === "sEMG") {
         setupInputType(INPUTS.BINARY);
     } else if (id == "MOUSE") {
         setupInputType(INPUTS.CLICK);
