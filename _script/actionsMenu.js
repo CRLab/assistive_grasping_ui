@@ -17,9 +17,17 @@ function showActionsMenu() {
         ]
     };
 
-    showMenu(menuMaskData, menuData, submenuData, function(id) {
-        console.log(id);
-    });
+    showMenu(menuMaskData, menuData, submenuData, actionsMenuOptionSelected);
+}
+
+
+// Called on a menu button click
+function actionsMenuOptionSelected(id) {
+    if (id === "sEMG") {
+        setupInputType(INPUTS.BINARY);
+    } else if (id == "MOUSE") {
+        setupInputType(INPUTS.CLICK);
+    }
 }
 
 

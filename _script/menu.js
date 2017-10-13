@@ -1,10 +1,10 @@
 var BUTTON_CLASSES = [".menu-button", ".submenu-button"];
+var PAGE_CONTROL_CLASS = ".page-control-button";
 var HOVERED_CLASS = "hovered";
 
-var currMenuClass = BUTTON_CLASSES[0];
-var animating = false;
+var currMenuClass = BUTTON_CLASSES[0];  // indicates whether we are in the menu or submenu
+var animating = false;                  // Indicates if we are in the middle of an animation
 var loadingSubmenu = false;
-var numMenuOptions = -1;
 var currMenuOption = -1;
 
 // Input types
@@ -29,30 +29,39 @@ function toggleBinaryMenu(isOn) {
         }
         currElement.addClass(HOVERED_CLASS);
 
-        // Update Num menu options and get current menu option
-        numMenuOptions = 0;
+        // Fill the menu options with menu buttons and page control buttons
+        menuOptions = [];
         $(currMenuClass).each(function(i) {
-            numMenuOptions += 1;   // The currently hovered over menu option
+            menuOptions.push(this);
             if ($(this).hasClass(HOVERED_CLASS)) {
                 currMenuOption = i;
             }
          });
+         $(PAGE_CONTROL_CLASS).each(function(i) {
+             menuOptions.push(this);
+          });
 
          // Change highlighted item or trigger menu item click event on key press
          $(window).keypress(function(e) {
              var key = e.which;
+
+             if (animating) { return; }
+
              if (key == DOWN_KEY) {
-                 $(currMenuClass).eq(currMenuOption).removeClass(HOVERED_CLASS);
-                 currMenuOption = (currMenuOption+1) % numMenuOptions;
-                 $(currMenuClass).eq(currMenuOption).addClass(HOVERED_CLASS);
+                 $(menuOptions[currMenuOption]).removeClass(HOVERED_CLASS);
+                 currMenuOption = (currMenuOption+1) % menuOptions.length;
+                 $(menuOptions[currMenuOption]).addClass(HOVERED_CLASS);
              } else if (key == SELECT_KEY) {
-                  $(currMenuClass+"."+HOVERED_CLASS).trigger("click");
+                 $(menuOptions[currMenuOption]).trigger("click");
              }
          });
 
     } else {
         // Remove any selection
         $(currMenuClass).each(function(i) {
+            $(this).removeClass(HOVERED_CLASS);
+        });
+        $(PAGE_CONTROL_CLASS).each(function(i) {
             $(this).removeClass(HOVERED_CLASS);
         });
 
@@ -76,14 +85,21 @@ function toggleClickMenu(isOn) {
                 $(this).removeClass(HOVERED_CLASS);
             }
         });
+
+        $(PAGE_CONTROL_CLASS).hover(function() {    // mousin
+            $(this).addClass(HOVERED_CLASS);
+        }, function() {    // mousout
+            $(this).removeClass(HOVERED_CLASS);
+        });
     } else {
         // disable hovering
         $(currMenuClass).unbind('mouseenter mouseleave');
+        $(PAGE_CONTROL_CLASS).unbind('mouseenter mouseleave');
     }
 }
 
 
-// Setup menu button clicks
+// Setup menu button click to show the submenu
 function setupMenuButtonClick(submenuData, selectedEventCallback) {
     $(BUTTON_CLASSES[0]).click(function() {
         // Ensure not clicking while in binary mode

@@ -31,7 +31,10 @@
     <!-- PAGE CONTROLS -->
     <div id="page-control">
         {{#pageControls}}
-        <div id={{pageControlID}} class="page-control-button"><img class="page-control-icon" src="/_assets/img/grasp.png"></div>
+        <div id={{pageControlID}} class="page-control-button">
+            <img class="page-control-icon" src="/_assets/img/grasp.png" >
+            <div class="page-control-hovered"></div>
+        </div>
         {{/pageControls}}
     </div>
 

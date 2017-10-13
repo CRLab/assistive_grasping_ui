@@ -13,6 +13,7 @@ function showInputsMenu() {
 }
 
 
+// Called on a menu button click
 function inputsMenuOptionSelected(id) {
     if (id === "sEMG") {
         setupInputType(INPUTS.BINARY);

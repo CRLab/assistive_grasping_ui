@@ -14,11 +14,19 @@ function showEnvironmentMenu() {
             {"buttonTitle": "SUB2"}
         ]
     };
-    
-    showMenu(menuMaskData, menuData, submenuData, function(id) {
-        console.log(id);
-    });}
 
+    showMenu(menuMaskData, menuData, submenuData, environmentMenuOptionSelected);
+}
+
+
+// Called on a menu button click
+function environmentMenuOptionSelected(id) {
+    if (id === "sEMG") {
+        setupInputType(INPUTS.BINARY);
+    } else if (id == "MOUSE") {
+        setupInputType(INPUTS.CLICK);
+    }
+}
 
 
 $(document).ready(function() {
