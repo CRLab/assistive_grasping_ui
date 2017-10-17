@@ -31,6 +31,8 @@
     color: var(--lightPurple);
     font-family: "Lato Light";
     pointer-events: none;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
 .highlighted-bar {

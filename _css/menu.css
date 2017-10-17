@@ -39,4 +39,6 @@ text, .menu-button-icon, .menu-button-outline   {
 text {
     fill: var(--lightPurple);
     font-family: "Lato Light";
+    font-size: 14px;
+    text-transform: uppercase;
 }

@@ -1,23 +1,15 @@
 function showInputsMenu() {
-    var menuMaskData = { "inputsMenuToggled": true };
-    var menuButtonTitles = [
-        {"menuButtonTitle": "MOUSE"},
-        {"menuButtonTitle": "sEMG"}
-    ];
-    var menuData = {
-        "menuItem": menuButtonTitles,
-        "numMenuItems": menuButtonTitles.length
-    };
-
-    showMenu(menuMaskData, menuData, undefined, inputsMenuOptionSelected);
+    menuData = ConfigParser.getData().inputsMenu;
+    showMenu(menuData, inputsMenuOptionSelected);
 }
 
 
 // Called on a menu button click
 function inputsMenuOptionSelected(id) {
-    if (id === "sEMG") {
+    console.log(id);
+    if (id === "semg") {
         setupInputType(INPUTS.BINARY);
-    } else if (id == "MOUSE") {
+    } else if (id == "mouse") {
         setupInputType(INPUTS.CLICK);
     }
 }

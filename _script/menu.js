@@ -23,7 +23,7 @@ var SELECT_KEY = 13;
 function toggleBinaryMenu(isOn) {
     if (isOn) {
         // Select binary menu item or first item in list
-        var currElement = $("#sEMG");
+        var currElement = $("#semg");
         if (!currElement.length) { // checks existence
             currElement = $(currMenuClass).eq(0);
         }
@@ -165,7 +165,7 @@ function showSubmenu(selectedButton, animHeight, submenuData, selectedEventCallb
 
 // Show the menu with the given mustache data. If no submenu is needed,
 // pass in submenuData=null
-function showMenu(menuMaskData, menuData, submenuData=null, selectedEventCallback=null) {
+function showMenu(menuData, selectedEventCallback=null) {
     animating = false;
     loadingSubmenu = false;
     menuLayer = 1;
@@ -173,7 +173,7 @@ function showMenu(menuMaskData, menuData, submenuData=null, selectedEventCallbac
 
     // Load menu page control mask
     $.get('/_view/menuMask.mustache', function(template) {
-        var rendered = Mustache.render(template, menuMaskData);
+        var rendered = Mustache.render(template, menuData.menuMaskData);
         $('#menu-mask-injection').html(rendered);
     });
 
@@ -186,8 +186,8 @@ function showMenu(menuMaskData, menuData, submenuData=null, selectedEventCallbac
         setupInputType(inputType);
 
         // ready submenu if present
-        if (submenuData != null) {
-            setupMenuButtonClick(submenuData, selectedEventCallback);
+        if (menuData.submenuItems != null) {
+            setupMenuButtonClick(menuData, selectedEventCallback);
         }
 
         // Send callback message when menu option was clicked
