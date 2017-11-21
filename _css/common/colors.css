@@ -1,0 +1,9 @@
+:root{
+    --darkPurple: #191b21;
+    --purple1: rgba(116, 123, 153, 1);
+    --purple2: rgba(149, 157, 196, 1);
+    --purple3: rgba(194, 204, 255, 1);
+    --buttonBackgroundA1: rgba(0, 0, 0, 0.2);
+    --buttonBackgroundA2: rgba(0, 0, 0, 0.35);
+    --buttonOn: #54ffce
+}

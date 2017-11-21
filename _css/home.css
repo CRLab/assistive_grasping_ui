@@ -43,11 +43,7 @@
     position: relative;
     font-family: "Lato Light";
     letter-spacing: 5px;
-    color: var(--lightPurple);
-
-    /*vertical center*/
-    top: 50%;
-    transform: translateY(-50%);
+    color: var(--purple2);
 }
 
 #menu-injection {
@@ -73,29 +69,4 @@
 .page-control-icon {
     height: 20px;
     width: 20px;
-
-    position: relative;
-    left: 50%;
-    top: -50%;
-    transform: translate(-50%, 50%);
-}
-
-.page-control-hovered {
-    width: 20%;
-    height: 2px;
-    position: relative;
-    background-color: var(--lightPurple);
-    border-radius: 10px;
-    visibility: hidden;
-    opacity: 0.5;
-
-    position: relative;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -30%);
-
-}
-
-.page-control-button.hovered > .page-control-hovered {
-    visibility: visible;
 }

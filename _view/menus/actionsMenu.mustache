@@ -1,0 +1,12 @@
+<div class="actions-menu-wrapper" grid-template-rows="repeat({{numButtons}}, auto)">
+    {{#buttons}}
+        <div class="action-button-container">
+            <div id="{{buttonTitle}}" class="action-button center-xy">
+                <div class="center-xy">
+                    <img class="action-button-icon center-x no-select" src="/_assets/img/grasp.png">
+                    <div class="button-title no-select">{{buttonTitle}}</div>
+                </div>
+            </div>
+        </div>
+    {{/buttons}}
+</div>

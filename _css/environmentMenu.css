@@ -1,0 +1,76 @@
+#environments-menu-wrapper {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.environment-wrapper {
+    height: 60px;
+}
+
+.environment-button-wrapper {
+    display: inline-block;
+    padding: 3px 12px 3px 12px;
+    cursor: pointer;
+}
+
+.environment-button-wrapper > .radio-button {
+    float: left;
+}
+
+.environment-button-wrapper > .button-title {
+    float: right;
+    text-align: left;
+    margin: 1px 0 0 10px;
+}
+
+.radio-button {
+    height: 18px;
+    width: 18px;
+    border-radius: 50px;
+    background-color: var(--buttonBackgroundA1);
+}
+
+.radio-button-selected {
+    height: 12px;
+    width: 12px;
+    border-radius: 40px;
+    background-color: var(--darkPurple);
+    transform: scale(0);
+    opacity: 0;
+
+    position: relative;
+    top: 19%;
+    left: 19%;
+}
+
+/* Animation *********************************************************************/
+
+.environment-button-wrapper .radio-button-selected,
+.environment-button-wrapper .radio-button,
+.environment-button-wrapper .button-title {
+    transition-property: transform, background-color, color, opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-out;
+}
+
+.radio-button-selected.on {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.environment-button-wrapper .radio-button.on {
+    background-color: var(--purple1);
+}
+
+.environment-button-wrapper:hover .radio-button:not(.on) {
+    background-color: var(--buttonBackgroundA2);
+}
+
+.environment-button-wrapper:hover .button-title {
+    color: var(--purple3);
+}
+
+/*********************************************************************************/
+
+
+

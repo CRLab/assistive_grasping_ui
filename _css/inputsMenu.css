@@ -1,0 +1,61 @@
+#inputs-menu-wrapper {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.input-wrapper {
+    height: 100px;
+}
+
+.input-wrapper .button-title {
+    margin-bottom: 8px;
+}
+
+.input-text {
+    text-transform: uppercase;
+    color: var(--purple2);
+    margin-bottom: 8px;
+    font-family: "Lato Light";
+}
+
+.input-toggle-background {
+    background-color: var(--buttonBackgroundA1);
+    width: 60px;
+    height: 30px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.input-toggle-foreground {
+    width: 23px;
+    height: 23px;
+    border-radius: 30px;
+}
+
+/* Animation *********************************************************************/
+
+.input-toggle-foreground, .input-toggle-background {
+    transition-property: margin-left, background-color, opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-out;
+}
+
+.input-toggle-background:hover {
+    background-color: var(--buttonBackgroundA2);
+}
+
+.input-toggle-foreground.off {
+    background-color: var(--purple2);
+    opacity: 0.4;
+    margin-left: 3px;
+}
+
+.input-toggle-foreground.on {
+    background-color: var(--buttonOn);
+    opacity: 1;
+    margin-left: 33px;
+}
+
+/*********************************************************************************/
+
+

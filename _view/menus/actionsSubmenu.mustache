@@ -1,0 +1,20 @@
+<div id="submenu-header">
+    <div class="action-button no-hover center-xy">
+        <div class="center-xy">
+            <img class="action-button-icon center-x no-select" src="/_assets/img/grasp.png">
+            <div class="button-title no-select">{{selectedButtonTitle}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="spacer"></div>
+
+{{#buttons}}
+    <div class="submenu-button" id="{{buttonTitle}}">
+        <div class="highlighted-bar"></div>
+        <div class="submenu-button-title-container">
+            <div class="button-title center-y no-select">{{buttonTitle}}</div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+{{/buttons}}

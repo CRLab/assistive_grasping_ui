@@ -1,0 +1,46 @@
+#submenu-header {
+    height: 150px;
+}
+
+.submenu-button {
+    position: relative;
+    height: 100px;
+    cursor: pointer;
+}
+
+#submenu-header > .action-button {
+    border: solid var(--purple2) 1.5px;
+    transform: scale(1.1) translate(-46%, -46%);
+    background-color: var(--buttonBackgroundA2);
+}
+
+.submenu-button-title-container {
+    position: relative;
+    width: calc(100% - 4px);
+    height: 100%;
+    float: right;
+}
+
+.highlighted-bar {
+    height: 100%;
+    width: 4px;
+    background-color: var(--purple2);
+    float: left;
+    opacity: 0;
+}
+
+/* Animation *********************************************************************/
+
+.highlighted-bar{
+    transition-property: opacity;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+}
+
+.submenu-button.hover .highlighted-bar {
+    opacity: 1;
+}
+
+/*********************************************************************************/
+
+

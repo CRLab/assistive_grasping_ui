@@ -7,50 +7,37 @@
 
 <body>
 
-    <!-- MENU SHADOW -->
-    <div id="menu-shadow"></div>
+<!-- MENU SHADOW -->
+<div id="menu-shadow"></div>
 
+<!-- GRADIENT MENU CONTAINER -->
+<svg id="menu-container" width="50%" height="70%">
+    <mask x='0' y='0' id="menu-mask-injection">
+        {{>menuMask}}
+    </mask>
+    <defs>
+        <linearGradient id="gradient" gradientUnits="userSpaceOnUse" x1="21.560574948665298%" y1="18.21428571428571%" x2="100%" y2="100%">
+            <stop stop-color="#33333B" offset="0"></stop>
+            <stop stop-color="#171e29" offset="1"></stop>
+        </linearGradient>
+    </defs>
+    <rect y='0' x='0' width="100%" height='100%' mask="url(#menu-mask-injection)" fill="url(#gradient)">
+    </rect>
+</svg>
 
-    <!-- GRADIENT MENU CONTAINER -->
-    <svg id="menu-container" width="50%" height="70%">
-        <mask x='0' y='0' id="menu-mask-injection">
+<!-- PAGE CONTROLS -->
+<div id="page-control"></div>
 
+<!-- STATUS BAR -->
+<div id="status-bar">
+    <div id="page-title" class="center-y no-select">ASSISTIVE GRASPING</div>
+</div>
 
-        </mask>
-        <defs>
-            <linearGradient id="gradient" gradientUnits="userSpaceOnUse" x1="21.560574948665298%" y1="18.21428571428571%" x2="100%" y2="100%">
-                <stop stop-color="#33333B" offset="0"/>
-                <stop stop-color="#171e29" offset="1"/>
-            </linearGradient>
-        </defs>
-        <rect y='0' x='0' width="100%" height='100%' mask="url(#menu-mask-injection)" fill="url(#gradient)">
-        </rect>
-    </svg>
+<!-- CAMERA VIEWPORT -->
+<div id="camera-container"></div>
 
-
-    <!-- PAGE CONTROLS -->
-    <div id="page-control">
-        {{#pageControls}}
-        <div id={{pageControlID}} class="page-control-button">
-            <img class="page-control-icon" src="/_assets/img/grasp.png" >
-            <div class="page-control-hovered"></div>
-        </div>
-        {{/pageControls}}
-    </div>
-
-
-    <!-- STATUS BAR -->
-    <div id="status-bar">
-        <div id="page-title" class="no-select">ASSISTIVE GRASPING</div>
-    </div>
-
-
-    <!-- CAMERA VIEWPORT -->
-    <div id="camera-container"></div>
-
-
-    <!-- MENU BUTTONS -->
-    <div id="menu-injection"></div>
+<!-- MENU BUTTONS -->
+<div id="menu-injection"></div>
 
 </body>
 </html>

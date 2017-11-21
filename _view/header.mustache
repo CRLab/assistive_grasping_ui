@@ -1,18 +1,22 @@
 <meta charset="utf-8">
 <title>Assistive Grasping</title>
 
-<link rel="stylesheet" href="/_css/colors.css">
-<link rel="stylesheet" href="/_css/fonts.css">
-<link rel="stylesheet" href="/_css/global.css">
+<!--css-->
+<link rel="stylesheet" href="/_css/common/colors.css">
+<link rel="stylesheet" href="/_css/common/fonts.css">
+<link rel="stylesheet" href="/_css/common/global.css">
 <link rel="stylesheet" href="/_css/home.css">
-<link rel="stylesheet" href="/_css/menu.css">
-<link rel="stylesheet" href="/_css/submenu.css">
+<link rel="stylesheet" href="/_css/actionsMenu.css">
+<link rel="stylesheet" href="/_css/actionsSubmenu.css">
+<link rel="stylesheet" href="/_css/inputsMenu.css">
+<link rel="stylesheet" href="/_css/environmentMenu.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="/modules/mustache.js"></script>
 
-<script src="/_script/ConfigParser.js"></script>
-<script src="/_script/menu.js"></script>
-<script src="/_script/actionsMenu.js"></script>      <!-- dependent on menu.js -->
-<script src="/_script/inputsMenu.js"></script>       <!-- dependent on menu.js -->
-<script src="/_script/environmentMenu.js"></script>  <!-- dependent on menu.js -->
+<!--ROS js-->
+<script type="text/javascript" src="/_script/lib/three.min.js"></script>
+<script type="text/javascript" src="/_script/lib/eventemitter2.min.js"></script>
+<script type="text/javascript" src="/_script/lib/roslib.min.js"></script>
+<script type="text/javascript" src="/_script/lib/ros3d.min.js"></script>
+
+<!--RequireJS-->
+<script data-main="/_script/menu" src="/_script/lib/require.js"></script>

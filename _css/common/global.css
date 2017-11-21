@@ -1,0 +1,68 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: "Lato Regular";
+    background-color: white;
+}
+
+html {
+    background-color: var(--darkPurple);
+}
+
+.no-select {
+    cursor: default;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.button-title {
+    text-align: center;
+    color: var(--purple2);
+    font-family: "Lato Light";
+    text-transform: uppercase;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+.spacer {
+    height: 2px;
+    background-color: black;
+    opacity: 0.1;
+    width: 100%;
+}
+
+.no-hover {
+    pointer-events: none;
+}
+
+/* center x and y */
+.center-xy {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* center x */
+.center-x {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* center y */
+.center-y {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+

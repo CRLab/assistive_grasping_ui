@@ -1,0 +1,42 @@
+.actions-menu-wrapper {
+    display: grid;
+    height: 100%;
+    grid-template-columns: auto;
+}
+
+.action-button-container {
+    position: relative;
+}
+
+.action-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    background-color: var(--buttonBackgroundA1);
+    cursor: pointer;
+}
+
+.action-button-icon {
+    height: 30px;
+    width: 30px;
+    margin-bottom: 4px;
+}
+
+/* Animation *********************************************************************/
+
+.action-button, .action-button-icon, .action-button-title {
+    transition-property: transform, background-color;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-out;
+    border: solid transparent 1.5px;
+}
+
+.action-button.hover {
+    transform: scale(1.1) translate(-46%, -46%);;
+    border: solid var(--purple2) 1.5px;
+    background-color: var(--buttonBackgroundA2);
+}
+
+/*********************************************************************************/
+
+
