@@ -1,9 +1,8 @@
-define(['jquery', 'app/ros', 'app/actionsMenu', 'app/validOptionsParser', 'app/actionsSubmenu'],
+define(['jquery', 'app/ros', 'app/actionsMenu', 'app/parsers/validOptionsParser', 'app/actionsSubmenu'],
         function ($, Ros, ActionsMenu, ValidOptionsParser, ActionsSubmenu) {
 
     // VAR **************************************************************************
 
-    var ros = Ros.init();
     var validOptionsData = null;
     var executeID = null;
     var initialLoad = true;   // First time the page is loaded flag
@@ -28,7 +27,7 @@ define(['jquery', 'app/ros', 'app/actionsMenu', 'app/validOptionsParser', 'app/a
         });
 
         validOptions.subscribe(function (message) {
-            console.log("valid: " + message);
+            console.log("valid options: " + message);
             validOptionsData = JSON.parse(message["data"]);
             execute();
         });
@@ -62,7 +61,6 @@ define(['jquery', 'app/ros', 'app/actionsMenu', 'app/validOptionsParser', 'app/a
         }
     }
 
-
     // Select a menu option by adding hover class to it. CSS will take care of the rest
     function select(id) {
         $(".hover").removeClass("hover");
@@ -73,5 +71,5 @@ define(['jquery', 'app/ros', 'app/actionsMenu', 'app/validOptionsParser', 'app/a
 
     // MAIN **************************************************************************
 
-    subscribe(ros);
+    subscribe();
 });

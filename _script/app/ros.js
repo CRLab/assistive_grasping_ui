@@ -3,8 +3,8 @@ define(function () {
     // VAR **************************************************************************
 
     var ros = null;
-    var EXECUTE_OPTION = 0, VALID_OPTIONS = 1, CURRENTLY_SELECTED = 2;
-    var options = ["/executeOption", "/validOptions", "/currentlySelected"];
+    var EXECUTE_OPTION = 0, VALID_OPTIONS = 1, CURRENTLY_SELECTED = 2, VALID_INPUTS = 3;
+    var options = ["/executeOption", "/validOptions", "/currentlySelected", "/validInputs"];
 
     // MODULE ************************************************************************
 
@@ -33,9 +33,10 @@ define(function () {
             return ros;
         },
 
-        validOptions: function () { return topic(VALID_OPTIONS); },
-        executeOption: function () { return topic(EXECUTE_OPTION); },
-        currentlySelected: function () { return topic(CURRENTLY_SELECTED); }
+        validOptions: function () {         return topic(VALID_OPTIONS); },
+        executeOption: function () {        return topic(EXECUTE_OPTION); },
+        currentlySelected: function () {    return topic(CURRENTLY_SELECTED); },
+        validInputs: function () {          return service(VALID_INPUTS); }
     };
 
     // FUNC **************************************************************************
@@ -45,6 +46,14 @@ define(function () {
             ros: ros,
             name: options[type],
             messageType: 'std_msgs/String'
+        });
+    }
+
+    function service(type) {
+        return new ROSLIB.Service({
+            ros : ros,
+            name : options[type],
+            serviceType : options[type]
         });
     }
 });

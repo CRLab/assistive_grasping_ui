@@ -16,7 +16,22 @@ The Assistive Grasping UI that is needed for running the medical campus Mico exp
 
 The entire UI can be populated and controlled over ROS, as described below:
 
-#### Actions Menu
+### Inputs Menu
+
+The inputs menu defines the valid inputs that may interact with the interface. To populate, write a ROS service called
+`/validInputs`. The service should take in a string (unused at the moment, so you can ignore it) and return the valid inputs 
+in the JSON form: 
+
+```javascript
+    var validInputsData = {
+        "<input-title>": "<status>"     // title must be unique, status can be on/off                                  
+    };
+```
+
+**Note:** Be sure to convert the JSON variable `validInputsData` to a string before sending over ROS. 
+
+
+### Actions Menu
 Displays action buttons and supports menu and submenu layers. The buttons for
 each layer can be dynamically populated by sending a ROS message over the topic
 `/validOptions`. The message for the menu layer should be in the JSON form:
@@ -52,7 +67,7 @@ sending a message over the topic `/currentlySelected` in the format:
 var data = "<button-id>";
 ```
 
-**Note:** The button id here must match the button id sent in `\validOptions`.
+**Note:** The button id here must match the button id sent in `/validOptions`.
 
 
 ### Execute Option
@@ -64,4 +79,4 @@ sending a message over the topic `/executeOption` in the format:
 var data = "<button-id>";
 ```
 
-**Note:** The button id here must match the button id sent in `\validOptions`.
+**Note:** The button id here must match the button id sent in `/validOptions`.
