@@ -6,9 +6,9 @@ define(function () {
 
         // Parse valid inputs into mustache formatted data
         parse: function (validInputs) {
-            var data = {"inputButtons": []};
+            var data = {"buttons": []};
             Object.keys(validInputs).forEach(function(key) {
-                data.inputButtons.push( {"inputButtonTitle": key, "status": validInputs[key] } );
+                data.buttons.push( {"title": key, "status": validInputs[key] } );
             });
             return data;
         }

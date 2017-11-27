@@ -14,15 +14,15 @@ define(['jquery', 'app/ros'], function ($, Ros) {
     ];
 
     var validOptionsData = {
-        "validOptions": validMenuOptions,
+        "validActions": validMenuOptions,
         "parent": "",
         "menuType": "menu"
     };
 
     // ROS topics
-    var executeOption = Ros.executeOption();
-    var validOptions = Ros.validOptions();
-    var currentlySelected = Ros.currentlySelected();
+    var executeOption = Ros.executeAction();
+    var validOptions = Ros.validActions();
+    var currentlySelected = Ros.selectedAction();
 
     // FUNC *************************************************************************
 

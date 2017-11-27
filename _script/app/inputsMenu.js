@@ -20,7 +20,7 @@ define(['jquery', 'mustache', 'app/ros', 'app/parsers/validInputsParser'], funct
 
             // Service response
             validInputsClient.callService(request, function(result) {
-                var jsonRes = JSON.parse(result["valid_inputs"]);
+                var jsonRes = JSON.parse(result[Object.keys(result)[0]]);   // Grabs the data inside the first key
                 var mustacheData = ValidInputsParser.parse(jsonRes);
 
                 var url = "/_view/menus/inputsMenu.mustache";

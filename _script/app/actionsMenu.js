@@ -4,7 +4,7 @@ define(['jquery', 'mustache'], function ($, Mustache) {
 
     var HOVER_CLASS = "hover";
     var cachedHTML = null;
-    var showing = false;    // Flag indicating if the page is in view
+    var showing = false;    // true menu is in view, false if submenu is in view
 
     // MODULE **************************************************************************
 

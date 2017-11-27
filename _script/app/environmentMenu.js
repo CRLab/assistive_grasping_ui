@@ -1,4 +1,4 @@
-define(['jquery', 'mustache'], function ($, Mustache) {
+define(['jquery', 'mustache', 'app/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, Parser) {
 
     // VAR **************************************************************************
 
@@ -6,30 +6,29 @@ define(['jquery', 'mustache'], function ($, Mustache) {
     var BUTTON_ON_CLASS = "on";
     var BUTTON_OFF_CLASS = "off";
 
-    var data = {
-        "environmentButtons": [
-            {
-                "buttonTitle": "env1",
-                "status": "on"
-            }, {
-                "buttonTitle": "env2",
-                "status": "off"
-            }, {
-                "buttonTitle": "env3",
-                "status": "off"
-            }
-        ]
-    };
-
     // MODULE ***********************************************************************
 
     return {
         load: function () {
-            var url = "/_view/menus/environmentMenu.mustache";
-            $.get(url, function(template) {
-                var rendered = Mustache.render(template, data);
-                $('#menu-injection').html(rendered);
-                enableMouse();
+            $('#menu-injection').html("");  // Clear current html
+
+            // Init service and request
+            var validEnvironmentsClient = Ros.validEnvironments();
+            var request = new ROSLIB.ServiceRequest({
+                req : ""
+            });
+
+            // Service response
+            validEnvironmentsClient.callService(request, function(result) {
+                var jsonRes = JSON.parse(result[Object.keys(result)[0]]);    // Grabs the data inside the first key
+                var mustacheData = Parser.parse(jsonRes);
+
+                var url = "/_view/menus/environmentMenu.mustache";
+                $.get(url, function(template) {
+                    var rendered = Mustache.render(template, mustacheData);
+                    $('#menu-injection').html(rendered);
+                    enableMouse();
+                });
             });
         }
     };

@@ -1,9 +1,9 @@
-define(['jquery', 'app/ros', 'app/actionsMenu', 'app/parsers/validOptionsParser', 'app/actionsSubmenu'],
-        function ($, Ros, ActionsMenu, ValidOptionsParser, ActionsSubmenu) {
+define(['jquery', 'app/ros', 'app/actionsMenu', 'app/parsers/validActionsParser', 'app/actionsSubmenu'],
+        function ($, Ros, ActionsMenu, ValidActionsParser, ActionsSubmenu) {
 
     // VAR **************************************************************************
 
-    var validOptionsData = null;
+    var validActionsData = null;
     var executeID = null;
     var initialLoad = true;   // First time the page is loaded flag
 
@@ -11,52 +11,52 @@ define(['jquery', 'app/ros', 'app/actionsMenu', 'app/parsers/validOptionsParser'
 
     // Subscribe to necessary ROS topics
     function subscribe() {
-        var currentlySelected = Ros.currentlySelected();
-        var executeOption = Ros.executeOption();
-        var validOptions = Ros.validOptions();
+        var selectedAction = Ros.selectedAction();
+        var executeAction = Ros.executeAction();
+        var validActions = Ros.validActions();
 
-        currentlySelected.subscribe(function (message) {
-            console.log("selected: " + message["data"]);
+        selectedAction.subscribe(function (message) {
+            console.log("selected action: " + message["data"]);
             select(message["data"]);
         });
 
-        executeOption.subscribe(function (message) {
-            console.log("execute: " + message["data"]);
+        executeAction.subscribe(function (message) {
+            console.log("execute action: " + message["data"]);
             executeID = message["data"];
             execute();
         });
 
-        validOptions.subscribe(function (message) {
-            console.log("valid options: " + message);
-            validOptionsData = JSON.parse(message["data"]);
+        validActions.subscribe(function (message) {
+            console.log("valid actions: " + message);
+            validActionsData = JSON.parse(message["data"]);
             execute();
         });
     }
 
     function execute() {
-        var menuData = validOptionsData !== null ? ValidOptionsParser.parse(validOptionsData["validOptions"]) : null;
+        var menuData = validActionsData !== null ? ValidActionsParser.parse(validActionsData["validActions"]) : null;
 
         // On page load, show actions menu
-        if (initialLoad && validOptionsData !== null && validOptionsData.menuType === "menu") {
+        if (initialLoad && validActionsData !== null && validActionsData.menuType === "menu") {
             ActionsMenu.load(menuData);
             initialLoad = false;
-            validOptionsData = null;
+            validActionsData = null;
 
         // Wait for both variables
-        } else if (executeID !== null && validOptionsData !== null) {
+        } else if (executeID !== null && validActionsData !== null) {
             // Show actions submenu
-            if (validOptionsData.menuType === "submenu") {
+            if (validActionsData.menuType === "submenu") {
                 ActionsMenu.animateDisappear(executeID, function () {
                     ActionsSubmenu.load(executeID, menuData);
                     executeID = null;
-                    validOptionsData = null;
+                    validActionsData = null;
                 });
 
             // Check for back press to return to menu
-            } else if (executeID === "back" && validOptionsData.menuType === "menu") {
+            } else if (executeID === "back" && validActionsData.menuType === "menu") {
                 ActionsMenu.load(menuData);
                 executeID = null;
-                validOptionsData = null;
+                validActionsData = null;
             }
         }
     }

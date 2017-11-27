@@ -3,8 +3,8 @@ define(function () {
     // VAR **************************************************************************
 
     var ros = null;
-    var EXECUTE_OPTION = 0, VALID_OPTIONS = 1, CURRENTLY_SELECTED = 2, VALID_INPUTS = 3;
-    var options = ["/executeOption", "/validOptions", "/currentlySelected", "/validInputs"];
+    var EXECUTE_ACTION = 0, VALID_ACTIONS = 1, SELECTED_ACTION = 2, VALID_INPUTS = 3, VALID_ENVIRONMENTS = 4;
+    var options = ["/executeAction", "/validActions", "/selectedAction", "/validInputs", "/validEnvironments"];
 
     // MODULE ************************************************************************
 
@@ -33,10 +33,11 @@ define(function () {
             return ros;
         },
 
-        validOptions: function () {         return topic(VALID_OPTIONS); },
-        executeOption: function () {        return topic(EXECUTE_OPTION); },
-        currentlySelected: function () {    return topic(CURRENTLY_SELECTED); },
-        validInputs: function () {          return service(VALID_INPUTS); }
+        validActions: function () {         return topic(VALID_ACTIONS); },
+        executeAction: function () {        return topic(EXECUTE_ACTION); },
+        selectedAction: function () {    return topic(SELECTED_ACTION); },
+        validInputs: function () {          return service(VALID_INPUTS); },
+        validEnvironments: function () {    return service(VALID_ENVIRONMENTS); }
     };
 
     // FUNC **************************************************************************

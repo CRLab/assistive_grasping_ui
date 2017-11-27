@@ -1,5 +1,3 @@
-// NOTE: Don't need openni
-
 function init() {
 
     // Connect to ROS.
