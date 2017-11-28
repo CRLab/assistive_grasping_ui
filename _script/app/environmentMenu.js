@@ -2,9 +2,9 @@ define(['jquery', 'mustache', 'app/ros', 'app/parsers/validInputsParser'], funct
 
     // VAR **************************************************************************
 
-    var BUTTON_CLASS = ".environment-button-wrapper";
-    var BUTTON_ON_CLASS = "on";
-    var BUTTON_OFF_CLASS = "off";
+    const BUTTON_CLASS = ".environment-button-wrapper";
+    const BUTTON_ON_CLASS = "on";
+    const BUTTON_OFF_CLASS = "off";
 
     // MODULE ***********************************************************************
 

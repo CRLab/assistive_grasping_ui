@@ -2,27 +2,25 @@ define(['jquery', 'app/ros'], function ($, Ros) {
 
     // VAR *************************************************************************
 
-    var ros = Ros.init();
-
     var button_classes = [".action-button", ".submenu-button"];
 
-    var validMenuOptions = ["menu1", "menu2", "menu3"];
-    var validSubmenuOptions = [
+    var validMenuActions = ["menu1", "menu2", "menu3"];
+    var validSubmenuActions = [
         ["submenu1", "submenu2", "back"],
         ["submenu3", "submenu4", "back"],
         ["submenu5", "submenu6", "back"]
     ];
 
-    var validOptionsData = {
-        "validActions": validMenuOptions,
+    var validActionsData = {
+        "validActions": validMenuActions,
         "parent": "",
         "menuType": "menu"
     };
 
     // ROS topics
-    var executeOption = Ros.executeAction();
-    var validOptions = Ros.validActions();
-    var currentlySelected = Ros.selectedAction();
+    const executeAction = Ros.executeAction();
+    const validActions = Ros.validActions();
+    const selectedAction = Ros.selectedAction();
 
     // FUNC *************************************************************************
 
@@ -31,22 +29,22 @@ define(['jquery', 'app/ros'], function ($, Ros) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    // Return true if valid options needs to be published over ROS, else false
-    function updateValidOptionsData(executedID) {
+    // Return true if valid actions needs to be published over ROS, else false
+    function updateValidActionsData(executedID) {
         var publish = false;
-        validOptionsData.parent = executedID;
+        validActionsData.parent = executedID;
 
         // Means we are clicking into the submenu
-        if (validOptionsData.menuType === "menu") {
-            var submenuIndex = validMenuOptions.indexOf(executedID);
-            validOptionsData.validOptions = validSubmenuOptions[submenuIndex];
-            validOptionsData.menuType = "submenu";
+        if (validActionsData.menuType === "menu") {
+            var submenuIndex = validMenuActions.indexOf(executedID);
+            validActionsData.validActions = validSubmenuActions[submenuIndex];
+            validActionsData.menuType = "submenu";
             publish = true;
 
         // In submenu and clicking back button
         } else if (executedID === "back") {
-            validOptionsData.validOptions = validMenuOptions;
-            validOptionsData.menuType = "menu";
+            validActionsData.validActions = validMenuActions;
+            validActionsData.menuType = "menu";
             publish = true;
         }
 
@@ -56,36 +54,36 @@ define(['jquery', 'app/ros'], function ($, Ros) {
 
     async function main() {
 
-        // Publish valid options to initially load page
-        var msg = new ROSLIB.Message({data: JSON.stringify(validOptionsData)});
+        // Publish valid actions to initially load page
+        var msg = new ROSLIB.Message({data: JSON.stringify(validActionsData)});
         await sleep(2000);
-        validOptions.publish(msg);
+        validActions.publish(msg);
 
         // Set mouse click and hover callbacks
         $(document).ready(function () {
             for (var i in button_classes) {
                 // click (attaching the event to #menu-injection will ensure it remains when menu page has changed)
                 $("#menu-injection").on("click", button_classes[i], function () {
-                    for (var j in validOptionsData.validOptions) {
-                        if (validOptionsData.validOptions[j] === $(this).attr("id")) {
+                    for (var j in validActionsData.validActions) {
+                        if (validActionsData.validActions[j] === $(this).attr("id")) {
                             // publish execute
-                            executeOption.publish(new ROSLIB.Message({data: $(this).attr("id")}));
+                            executeAction.publish(new ROSLIB.Message({data: $(this).attr("id")}));
 
-                            // publish valid options if necessary
-                            if (updateValidOptionsData($(this).attr("id"))) {
-                                var msg = new ROSLIB.Message({data: JSON.stringify(validOptionsData)});
-                                validOptions.publish(msg);
+                            // publish valid actions if necessary
+                            if (updateValidActionsData($(this).attr("id"))) {
+                                var msg = new ROSLIB.Message({data: JSON.stringify(validActionsData)});
+                                validActions.publish(msg);
                             }
                         }
                     }
 
                 // Hover in
                 }).on("mouseenter", button_classes[i], function () {
-                    currentlySelected.publish(new ROSLIB.Message({data: $(this).attr("id")}));
+                    selectedAction.publish(new ROSLIB.Message({data: $(this).attr("id")}));
 
                 // Hover out
                 }).on("mouseleave", button_classes[i], function () {
-                    currentlySelected.publish(new ROSLIB.Message({data: ""}));
+                    selectedAction.publish(new ROSLIB.Message({data: ""}));
                 });
             }
         })
