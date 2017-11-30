@@ -3,62 +3,60 @@ define(function () {
     // VAR **************************************************************************
 
     var ros = null;
-    var EXECUTE_ACTION = 0, VALID_ACTIONS = 1, SELECTED_ACTION = 2, VALID_INPUTS = 3, VALID_ENVIRONMENTS = 4;
-    var options = ["/executeAction", "/validActions", "/selectedAction", "/validInputs", "/validEnvironments"];
+
+    var topics = {
+        EXECUTE_ACTION:         "/executeAction",
+        VALID_ACTIONS:          "/validActions",
+        SELECTED_ACTION:        "/selectedAction",
+        VALID_INPUTS:           "/validInputs",
+        VALID_ENVIRONMENTS:     "/validEnvironments",
+        TOGGLED_INPUT:          "/toggledInput",
+        TOGGLED_ENVIRONMENT:    "/toggledEnvironment"
+    };
 
     // MODULE ************************************************************************
 
     return {
-        init: function () { init() },
+        init: function () { return init() },
 
-        validActions: function () {         return topic(VALID_ACTIONS); },
-        executeAction: function () {        return topic(EXECUTE_ACTION); },
-        selectedAction: function () {    return topic(SELECTED_ACTION); },
-        validInputs: function () {          return service(VALID_INPUTS); },
-        validEnvironments: function () {    return service(VALID_ENVIRONMENTS); }
+        // Topics and services to connect to
+        validActions: function () {         return topic(topics.VALID_ACTIONS); },
+        executeAction: function () {        return topic(topics.EXECUTE_ACTION); },
+        selectedAction: function () {       return topic(topics.SELECTED_ACTION); },
+        validInputs: function () {          return service(topics.VALID_INPUTS); },
+        validEnvironments: function () {    return service(topics.VALID_ENVIRONMENTS); },
+        toggledInput: function () {         return topic(topics.TOGGLED_INPUT) },
+        toggledEnvironment: function () {   return topic(topics.TOGGLED_ENVIRONMENT)  }
+
     };
 
     // FUNC **************************************************************************
 
     function init() {
-        if (ros !== null) {
-            return ros
-        }
+        if (ros !== null) { return ros }
 
-        ros = new ROSLIB.Ros({
-            url: 'ws://localhost:9090'
-        });
-
-        ros.on('connection', function () {
-            console.log('Connected to websocket server.');
-        });
-
-        ros.on('error', function (error) {
-            console.log('Error connecting to websocket server: ', error);
-        });
-
-        ros.on('close', function () {
-            console.log('Connection to websocket server closed.');
-        });
-
+        ros = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+        ros.on('connection', function () {  console.log('Connected to websocket server.'); });
+        ros.on('error', function (error) {  console.log('Error connecting to websocket server: ', error); });
+        ros.on('close', function () {       console.log('Connection to websocket server closed.'); });
         return ros;
     }
 
-    function topic(type) {
+    function topic(topic) {
         init();
         return new ROSLIB.Topic({
             ros: ros,
-            name: options[type],
+            name: topic,
             messageType: 'std_msgs/String'
         });
     }
 
-    function service(type) {
+    function service(topic) {
         init();
         return new ROSLIB.Service({
             ros : ros,
-            name : options[type],
-            serviceType : options[type]
+            name : topic,
+            serviceType : topic
         });
     }
 });

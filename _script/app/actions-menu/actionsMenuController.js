@@ -1,4 +1,4 @@
-define(['jquery', 'app/ros', 'app/actionsMenu', 'app/parsers/validActionsParser', 'app/actionsSubmenu'],
+define(['jquery', 'app/ros', 'app/actions-menu/actionsMenu', 'app/parsers/validActionsParser', 'app/actions-menu/actionsSubmenu'],
         function ($, Ros, ActionsMenu, ValidActionsParser, ActionsSubmenu) {
 
     // VAR **************************************************************************

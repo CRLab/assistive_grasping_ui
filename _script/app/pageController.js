@@ -1,4 +1,4 @@
-define(['jquery', 'mustache', 'app/actionsMenu', 'app/actionsSubmenu', 'app/inputsMenu', 'app/environmentMenu'],
+define(['jquery', 'mustache', 'app/actions-menu/actionsMenu', 'app/actions-menu/actionsSubmenu', 'app/inputs-menu/inputsMenu', 'app/environment-menu/environmentMenu'],
         function ($, Mustache, ActionsMenu, ActionsSubmenu, InputsMenu, EnvironmentMenu) {
 
     // VAR **************************************************************************

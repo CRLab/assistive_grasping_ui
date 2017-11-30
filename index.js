@@ -12,7 +12,6 @@ app.use("/_css", express.static(__dirname + '/_css'));
 app.use("/_script", express.static(__dirname + '/_script'));
 app.use("/_assets", express.static(__dirname + '/_assets'));
 app.use("/_view", express.static(__dirname + '/_view'));
-app.use("/modules", express.static(__dirname + '/modules'));
 
 app.get('/', function (req, res) {
     res.render('home');
