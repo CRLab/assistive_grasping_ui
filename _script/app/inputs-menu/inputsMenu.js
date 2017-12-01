@@ -1,4 +1,4 @@
-define(['jquery', 'mustache', 'app/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, ValidInputsParser) {
+define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, ValidInputsParser) {
 
     // VAR **************************************************************************
 

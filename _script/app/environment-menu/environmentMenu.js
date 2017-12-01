@@ -1,4 +1,4 @@
-define(['jquery', 'mustache', 'app/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, Parser) {
+define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, Parser) {
 
     // VAR **************************************************************************
 
@@ -20,6 +20,8 @@ define(['jquery', 'mustache', 'app/ros', 'app/parsers/validInputsParser'], funct
 
             // Service response
             validEnvironmentsClient.callService(request, function(result) {
+
+                console.log(result);
                 var jsonRes = JSON.parse(result[Object.keys(result)[0]]);    // Grabs the data inside the first key
                 var mustacheData = Parser.parse(jsonRes);
 

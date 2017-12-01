@@ -1,10 +1,9 @@
-define(['jquery', 'app/ros', 'app/actions-menu/actionsMenu', 'app/parsers/validActionsParser', 'app/actions-menu/actionsSubmenu'],
+define(['jquery', 'app/ros/ros', 'app/actions-menu/actionsMenu', 'app/parsers/validActionsParser', 'app/actions-menu/actionsSubmenu'],
         function ($, Ros, ActionsMenu, ValidActionsParser, ActionsSubmenu) {
 
     // VAR **************************************************************************
 
     var validActionsData = null;
-    var initialLoad = true;   // First time the page is loaded fla
     var prevParent = null;
 
     // FUNC **************************************************************************
@@ -13,6 +12,7 @@ define(['jquery', 'app/ros', 'app/actions-menu/actionsMenu', 'app/parsers/validA
     function subscribe() {
         var selectedAction = Ros.selectedAction();
         var validActions = Ros.validActions();
+        var validActionsService = Ros.validActionsSrv();
 
         selectedAction.subscribe(function (message) {
             console.log("selected action: " + message["data"]);
@@ -20,30 +20,51 @@ define(['jquery', 'app/ros', 'app/actions-menu/actionsMenu', 'app/parsers/validA
         });
 
         validActions.subscribe(function (message) {
-            console.log("valid actions: " + message);
-            validActionsData = JSON.parse(message["data"]);
-            // execute();
+            console.log("valid actions: ");
+            console.log(message);
+            validActionsData = message;
             load();
         });
-    }
-    
 
+
+        // TODO: UP TO HERE. not getting a result from the service//////////////////////////////
+        // Init service and request
+        var request = new ROSLIB.ServiceRequest({
+            req : ""
+        });
+
+        // Service response
+        validActionsService.callService(request, function(result) {
+            console.log("service result: ");
+            console.log(result);
+        });
+        ////////////////////////////////////////////////////////////////////////////////
+
+
+    }
+
+
+    // Load the actions menu when valid actions have been recieved
     function load() {
         if (validActionsData === null) { return; }
 
-        var menuData = ValidActionsParser.parse(validActionsData.validActions);
+        var menuData = ValidActionsParser.parse(validActionsData.commands);
         var executedID = validActionsData.parent;
 
-        if (validActionsData.menuType === "menu") {
+        // menu
+        if (validActionsData.menutype === "menu") {
             ActionsMenu.load(menuData);
-        } else if (validActionsData.menuType === "submenu") {
+            prevParent = validActionsData.parent;
+            validActionsData = null;
+
+        // submenu
+        } else if (validActionsData.menutype === "submenu") {
             ActionsMenu.animateDisappear(executedID, function () {
                 ActionsSubmenu.load(executedID, menuData);
+                prevParent = validActionsData.parent;
+                validActionsData = null;
             });
         }
-
-        prevParent = validActionsData.parent;
-        validActionsData = null;
     }
 
 

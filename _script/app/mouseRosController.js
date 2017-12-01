@@ -1,4 +1,4 @@
-define(['jquery', 'app/ros'], function ($, Ros) {
+define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     // VAR *************************************************************************
 
@@ -12,9 +12,9 @@ define(['jquery', 'app/ros'], function ($, Ros) {
     ];
 
     var validActionsData = {
-        "validActions": validMenuActions,
-        "parent": "",
-        "menuType": "menu"
+        commands: validMenuActions,
+        parent: "",
+        menutype: "menu"
     };
 
     // ROS topics
@@ -35,16 +35,16 @@ define(['jquery', 'app/ros'], function ($, Ros) {
         validActionsData.parent = executedID;
 
         // Means we are clicking into the submenu
-        if (validActionsData.menuType === "menu") {
+        if (validActionsData.menutype === "menu") {
             var submenuIndex = validMenuActions.indexOf(executedID);
-            validActionsData.validActions = validSubmenuActions[submenuIndex];
-            validActionsData.menuType = "submenu";
+            validActionsData.commands = validSubmenuActions[submenuIndex];
+            validActionsData.menutype = "submenu";
             publish = true;
 
         // In submenu and clicking back button
         } else if (executedID === "back") {
-            validActionsData.validActions = validMenuActions;
-            validActionsData.menuType = "menu";
+            validActionsData.commands = validMenuActions;
+            validActionsData.menutype = "menu";
             publish = true;
         }
 
@@ -55,7 +55,7 @@ define(['jquery', 'app/ros'], function ($, Ros) {
     async function main() {
 
         // Publish valid actions to initially load page
-        var msg = new ROSLIB.Message({data: JSON.stringify(validActionsData)});
+        var msg = new ROSLIB.Message(validActionsData);
         await sleep(2000);
         validActions.publish(msg);
 
@@ -65,14 +65,15 @@ define(['jquery', 'app/ros'], function ($, Ros) {
 
                 // click (attaching the event to #menu-injection will ensure it remains when menu page has changed)
                 $("#menu-injection").on("click", button_classes[i], function () {
-                    for (var j in validActionsData.validActions) {
-                        if (validActionsData.validActions[j] === $(this).attr("id")) {
+                    for (var j in validActionsData.commands) {
+                        if (validActionsData.commands[j] === $(this).attr("id")) {
                             // publish execute
                             executeAction.publish(new ROSLIB.Message({data: $(this).attr("id")}));
+                            console.log("Execute: " + $(this).attr("id"));
 
                             // publish valid actions if necessary
                             if (updateValidActionsData($(this).attr("id"))) {
-                                var msg = new ROSLIB.Message({data: JSON.stringify(validActionsData)});
+                                var msg = new ROSLIB.Message(validActionsData);
                                 validActions.publish(msg);
                             }
                         }
