@@ -62,6 +62,7 @@ define(['jquery', 'app/ros'], function ($, Ros) {
         // Set mouse click and hover callbacks
         $(document).ready(function () {
             for (var i in button_classes) {
+
                 // click (attaching the event to #menu-injection will ensure it remains when menu page has changed)
                 $("#menu-injection").on("click", button_classes[i], function () {
                     for (var j in validActionsData.validActions) {

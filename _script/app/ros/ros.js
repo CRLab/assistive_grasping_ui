@@ -5,9 +5,9 @@ define(function () {
     var ros = null;
 
     var topics = {
-        EXECUTE_ACTION:         "/executeAction",
-        VALID_ACTIONS:          "/validActions",
-        SELECTED_ACTION:        "/selectedAction",
+        EXECUTE_ACTION:         "/executeCommand",
+        VALID_ACTIONS:          "/validCommands",
+        SELECTED_ACTION:        "/selectedCommand",
         VALID_INPUTS:           "/validInputs",
         VALID_ENVIRONMENTS:     "/validEnvironments",
         TOGGLED_INPUT:          "/toggledInput",
@@ -51,12 +51,12 @@ define(function () {
         });
     }
 
-    function service(topic) {
+    function service(server) {
         init();
         return new ROSLIB.Service({
             ros : ros,
-            name : topic,
-            serviceType : topic
+            name : server,
+            serviceType : server
         });
     }
 });
