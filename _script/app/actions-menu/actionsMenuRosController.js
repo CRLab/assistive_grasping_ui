@@ -23,24 +23,23 @@ define(['jquery', 'app/ros/ros', 'app/actions-menu/actionsMenu', 'app/parsers/va
             console.log("valid actions: ");
             console.log(message);
             validActionsData = message;
+            // TODO: handle case when valid actions are changed from controller randomly. handle case when actions menu is not showing and this happens
             load();
         });
 
 
-        // TODO: UP TO HERE. not getting a result from the service//////////////////////////////
-        // Init service and request
+        // service request
         var request = new ROSLIB.ServiceRequest({
-            req : ""
+            request : "null"
         });
 
         // Service response
         validActionsService.callService(request, function(result) {
             console.log("service result: ");
             console.log(result);
+            validActionsData = result;
+            load();
         });
-        ////////////////////////////////////////////////////////////////////////////////
-
-
     }
 
 

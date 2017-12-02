@@ -7,7 +7,7 @@ define(function () {
     // value = [topicName, messageType]
     var topics = {
         VALID_ACTIONS:          ["/valid_commands", "external_controller_msgs/ValidCommands"],
-        VALID_ACTIONS_SRV:      ["/valid_commands_service", "beginner_tutorials/ValidCommandsService"],     // TODO: change beginner tutorial to correct package name
+        VALID_ACTIONS_SRV:      ["/valid_commands_service", "external_controller_msgs/ValidCommandsService"],
         SELECTED_ACTION:        ["/currently_selected_command", "std_msgs/String"],
         EXECUTE_ACTION:         ["/execute_command", "std_msgs/String"],
 
@@ -30,7 +30,7 @@ define(function () {
 
         // Topics and services to connect to
         validActions: function () {             return topic(topics.VALID_ACTIONS); },
-        validActionsSrv: function () {          return service(topics.VALID_ACTIONS_SRV); },   // not done. check todo above
+        validActionsSrv: function () {          return service(topics.VALID_ACTIONS_SRV); },   // done, but small todo
         selectedAction: function () {           return topic(topics.SELECTED_ACTION); },
         executeAction: function () {            return topic(topics.EXECUTE_ACTION); },
 
@@ -69,7 +69,7 @@ define(function () {
         return new ROSLIB.Service({
             ros : ros,
             name : param[0],
-            serviceType : param[0]
+            serviceType : param[1]
         });
     }
 });

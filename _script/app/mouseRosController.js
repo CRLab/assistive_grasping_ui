@@ -24,11 +24,6 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     // FUNC *************************************************************************
 
-    // Sleep execution for given amount of time
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     // Return true if valid actions needs to be published over ROS, else false
     function updateValidActionsData(executedID) {
         var publish = false;
@@ -52,12 +47,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
     }
 
 
-    async function main() {
-
-        // Publish valid actions to initially load page
-        var msg = new ROSLIB.Message(validActionsData);
-        await sleep(2000);
-        validActions.publish(msg);
+    function main() {
 
         // Set mouse click and hover callbacks
         $(document).ready(function () {
