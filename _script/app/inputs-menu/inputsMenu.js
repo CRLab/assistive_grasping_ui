@@ -1,46 +1,79 @@
-define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, ValidInputsParser) {
+define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, Parser) {
 
     // VAR **************************************************************************
 
-    var BUTTON_CLASS = ".input-toggle-background";
-    var BUTTON_ON_CLASS = "on";
-    var BUTTON_OFF_CLASS = "off";
+    const BUTTON_CLASS = ".input-toggle-background";
+    const BUTTON_ON_CLASS = "on";
+    const BUTTON_OFF_CLASS = "off";
+
+    var showing = false;    // True if page is showing
+    var cachedHTML = null;
+
 
     // MODULE ***********************************************************************
 
     return {
         load: function () {
-            $('#menu-injection').html("");  // Clear current html
+            if (cachedHTML !== null) {
+                $('#menu-injection').html(cachedHTML);
+            } else {
+                initialLoad();
+            }
+        },
 
-            // Init service and request
-            var validInputsClient = Ros.validInputs();
-            var request = new ROSLIB.ServiceRequest({
-                req : ""
-            });
-
-            // Service response
-            validInputsClient.callService(request, function(result) {
-                var jsonRes = JSON.parse(result[Object.keys(result)[0]]);   // Grabs the data inside the first key
-                var mustacheData = ValidInputsParser.parse(jsonRes);
-
-                var url = "/_view/menus/inputsMenu.mustache";
-                $.get(url, function(template) {
-                    var rendered = Mustache.render(template, mustacheData);
-                    $('#menu-injection').html(rendered);
-                    enableMouse();
-                });
-            });
+        setShowing: function (val) {
+            showing = val;
         }
     };
 
     // FUNC *************************************************************************
 
+    // Called first time page is loaded
+    function initialLoad() {
+        if (!showing) { return; }
+
+        $('#menu-injection').html("");  // Clear current html
+
+        // Init service and request
+        var validInputsService = Ros.validInputsSrv();
+        var request = new ROSLIB.ServiceRequest({
+            request : ""
+        });
+
+        // Call service to initially load page
+        validInputsService.callService(request, function(result) {
+            console.log("valid inputs service result:");
+            console.log(result);
+            var mustacheData = Parser.parse(result);
+
+            var url = "/_view/menus/inputsMenu.mustache";
+            $.get(url, function(template) {
+                cachedHTML = Mustache.render(template, mustacheData);
+                $('#menu-injection').html(cachedHTML);
+                enableMouse();
+            });
+        });
+
+        // listen for background changes
+        var validInputs = Ros.validInputs();
+        validInputs.subscribe(function (message) {
+            console.log("valid inputs: ");
+            console.log(message);
+            var mustacheData = Parser.parse(message);
+
+            var url = "/_view/menus/inputsMenu.mustache";
+            $.get(url, function(template) {
+                cachedHTML = Mustache.render(template, mustacheData);
+                if (showing) {
+                    $('#menu-injection').html(cachedHTML);
+                }
+            });
+        });
+    }
     function enableMouse() {
         $(BUTTON_CLASS).click(function () {
-            if ($(this).attr("id") !== "mouse-toggle") {
-                $(this).children(":first").toggleClass(BUTTON_ON_CLASS);
-                $(this).children(":first").toggleClass(BUTTON_OFF_CLASS);
-            }
+            $(this).children(":first").toggleClass(BUTTON_ON_CLASS);
+            $(this).children(":first").toggleClass(BUTTON_OFF_CLASS);
         });
     }
 });

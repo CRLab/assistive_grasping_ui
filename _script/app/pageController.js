@@ -3,18 +3,22 @@ define(['jquery', 'mustache', 'app/actions-menu/actionsMenu', 'app/actions-menu/
 
     // VAR **************************************************************************
 
-    var PAGE_CONTROL_IDS = ["actionsMenu", "environmentMenu", "inputsMenu"];
+    const PAGE_CONTROL_IDS = {
+        ACTIONS: "actionsMenu",
+        ENVIRONMENTS: "environmentMenu",
+        INPUTS: "inputsMenu"
+    };
 
-    var PAGE_CONTROL_DATA = {
+    const PAGE_CONTROL_DATA = {
         "pageControls": [
             {
-                "pageControlID": PAGE_CONTROL_IDS[0],
+                "pageControlID":PAGE_CONTROL_IDS.ACTIONS,
                 "icon": "actions.png"
             }, {
-                "pageControlID": PAGE_CONTROL_IDS[1],
+                "pageControlID": PAGE_CONTROL_IDS.ENVIRONMENTS,
                 "icon": "environment.png"
             }, {
-                "pageControlID": PAGE_CONTROL_IDS[2],
+                "pageControlID": PAGE_CONTROL_IDS.INPUTS,
                 "icon": "inputs.png"
             }
         ]
@@ -25,22 +29,23 @@ define(['jquery', 'mustache', 'app/actions-menu/actionsMenu', 'app/actions-menu/
     $(document).ready(function() {
         // Load page controls and mask for actions menu.
         loadPageControls();
-        loadMask(PAGE_CONTROL_IDS[0]);
+        loadMask(PAGE_CONTROL_IDS.ACTIONS);
     });
 
     // FUNC **************************************************************************
 
     function loadPageControls() {
+        var ids = [PAGE_CONTROL_IDS.ACTIONS, PAGE_CONTROL_IDS.ENVIRONMENTS, PAGE_CONTROL_IDS.INPUTS];
         $.get("/_view/pageControl.mustache", function(template) {
             var rendered = Mustache.render(template, PAGE_CONTROL_DATA);
             $('#page-control').html(rendered);
 
             // load menu type on page control click
-            for (var i in PAGE_CONTROL_IDS) {
+            for (var i = 0; i < Object.keys(PAGE_CONTROL_IDS).length; i++) {
                 (function(index) {  // Allows access to i (index) in click callback
-                    $("#" + PAGE_CONTROL_IDS[index]).click(function() {
-                        loadMask(PAGE_CONTROL_IDS[index]);
-                        loadMenu(PAGE_CONTROL_IDS[index]);
+                    $("#" + ids[index]).click(function() {
+                        loadMask(ids[index]);
+                        loadMenu(ids[index]);
                     });
                 })(i);
             }
@@ -60,16 +65,29 @@ define(['jquery', 'mustache', 'app/actions-menu/actionsMenu', 'app/actions-menu/
 
     // Load menu for a specific page
     function loadMenu(menuType) {
+        // TODO: Fill in
+        EnvironmentMenu.setShowing(false);
+        InputsMenu.setShowing(false);
+
         switch (menuType) {
-            case PAGE_CONTROL_IDS[0]:
+            case PAGE_CONTROL_IDS.ACTIONS:
                 if (ActionsMenu.showing()) {
                     ActionsMenu.loadCached();
                 } else {
                     ActionsSubmenu.loadCached();
                 }
                 break;
-            case PAGE_CONTROL_IDS[1]: EnvironmentMenu.load(); break;
-            case PAGE_CONTROL_IDS[2]: InputsMenu.load(); break;
+
+            case PAGE_CONTROL_IDS.ENVIRONMENTS:
+                EnvironmentMenu.setShowing(true);
+                EnvironmentMenu.load();
+                break;
+
+            case PAGE_CONTROL_IDS.INPUTS:
+                InputsMenu.setShowing(true);
+                InputsMenu.load();
+                break;
+
             default: break;
         }
     }

@@ -12,11 +12,11 @@ define(function () {
         EXECUTE_ACTION:         ["/execute_command", "std_msgs/String"],
 
         VALID_ENVIRONMENTS:     ["/valid_environments", "external_controller_msgs/ValidEnvironments"],
-        VALID_ENVIRONMENTS_SRV: ["/valid_environments_service", "external_controller_msgs/ValidEnvironments"],
+        VALID_ENVIRONMENTS_SRV: ["/valid_environments_service", "external_controller_msgs/ValidEnvironmentsService"],
         SET_ENVIRONMENT_SRV:    ["/set_environment_service", "external_controller_msg/SetEnvironment"],
 
-        VALID_INPUTS:           ["/valid_inputs", "external_controller_msg/ValidInputs"],
-        VALID_INPUTS_SRV:       ["valid_inputs_service", "external_controller_msg/ValidInputs"],
+        VALID_INPUTS:           ["/valid_inputs", "external_controller_msgs/ValidInputs"],
+        VALID_INPUTS_SRV:       ["/valid_inputs_service", "external_controller_msgs/ValidInputsService"],
         SET_INPUT_SRV:          ["/set_input_service", "external_controller_msgs/SetInput"],
 
         CRUI_BOT_STATUS:        ["/crui_bot_status", "std_msgs/String"]
@@ -34,12 +34,12 @@ define(function () {
         selectedAction: function () {           return topic(topics.SELECTED_ACTION); },
         executeAction: function () {            return topic(topics.EXECUTE_ACTION); },
 
-        validEnvironments: function () {        return topic(topics.VALID_ENVIRONMENTS); },         // not done
-        validEnvironmentsSrv: function () {     return service(topics.VALID_ENVIRONMENTS_SRV); },     // not done
+        validEnvironments: function () {        return topic(topics.VALID_ENVIRONMENTS); },
+        validEnvironmentsSrv: function () {     return service(topics.VALID_ENVIRONMENTS_SRV); },
         setEnvironmentSrv: function () {        return service(topics.SET_ENVIRONMENT_SRV); },   // not done
 
-        validInputs: function () {              return topic(topics.VALID_INPUTS); },   // not done
-        validInputsSrv: function () {           return service(topics.VALID_INPUTS_SRV); },   // not done
+        validInputs: function () {              return topic(topics.VALID_INPUTS); },
+        validInputsSrv: function () {           return service(topics.VALID_INPUTS_SRV); },
         setInputsSrv: function () {             return service(topics.SET_INPUT_SRV); }   // not done
     };
 

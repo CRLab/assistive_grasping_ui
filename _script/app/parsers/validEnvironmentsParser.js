@@ -8,9 +8,8 @@ define(function () {
         parse: function (data) {
             var parsed = {"buttons": []};
 
-            for (var i in data.inputs) {
-                var status = (data.inputs[i] === "mouse") ? "on" : "off";
-                parsed.buttons.push( {"title": data.inputs[i], "status": status } );
+            for (var i in data.environments) {
+                parsed.buttons.push( {"title": data.environments[i], "status": "off" } );
             }
             return parsed;
         }
