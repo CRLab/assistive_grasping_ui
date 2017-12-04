@@ -9,8 +9,7 @@ define(function () {
             var parsed = {"buttons": []};
 
             for (var i in data.inputs) {
-                var status = (data.inputs[i] === "mouse") ? "on" : "off";
-                parsed.buttons.push( {"title": data.inputs[i], "status": status } );
+                parsed.buttons.push( {"title": data.inputs[i], "status": data.statuses[i] } );
             }
             return parsed;
         }

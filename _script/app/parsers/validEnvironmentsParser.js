@@ -9,7 +9,8 @@ define(function () {
             var parsed = {"buttons": []};
 
             for (var i in data.environments) {
-                parsed.buttons.push( {"title": data.environments[i], "status": "off" } );
+                var status = (data.current_environment === data.environments[i]) ? "on" : "off";
+                parsed.buttons.push( {"title": data.environments[i], "status": status} );
             }
             return parsed;
         }

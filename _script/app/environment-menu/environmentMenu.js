@@ -5,9 +5,11 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validEnvironmentsParse
     const BUTTON_CLASS = ".environment-button-wrapper";
     const BUTTON_ON_CLASS = "on";
     const BUTTON_OFF_CLASS = "off";
+    const URL = "/_view/menus/environmentMenu.mustache";
 
     var showing = false;    // True if page is showing
     var cachedHTML = null;
+    var validEnvironments = null;   // ROS topic
 
     // MODULE ***********************************************************************
 
@@ -15,8 +17,14 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validEnvironmentsParse
         load: function () {
             if (cachedHTML !== null) {
                 $('#menu-injection').html(cachedHTML);
+                enableMouse();
             } else {
-                initialLoad();
+                requestData();
+            }
+
+            // Setup listening for background changes to valid inputs
+            if (validEnvironments === null) {
+                subscribe();
             }
         },
 
@@ -27,10 +35,8 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validEnvironmentsParse
 
     // FUNC *************************************************************************
 
-    // Called first time page is loaded
-    function initialLoad() {
-        if (!showing) { return; }
-
+    // Request data for page over ROS
+    function requestData() {
         $('#menu-injection').html("");  // Clear current html
 
         // Init service and request
@@ -45,26 +51,31 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validEnvironmentsParse
             console.log(result);
             var mustacheData = Parser.parse(result);
 
-            var url = "/_view/menus/environmentMenu.mustache";
-            $.get(url, function(template) {
+            $.get(URL, function(template) {
                 cachedHTML = Mustache.render(template, mustacheData);
-                $('#menu-injection').html(cachedHTML);
-                enableMouse();
+
+                if (showing) {
+                    $('#menu-injection').html(cachedHTML);
+                    enableMouse();
+                }
             });
         });
+    }
 
-        // listen for background changes
-        var validEnvironments = Ros.validEnvironments();
+
+    // Listen over ROS for changes ot valid inputs
+    function subscribe() {
+        validEnvironments = Ros.validEnvironments();
         validEnvironments.subscribe(function (message) {
             console.log("valid environments: ");
             console.log(message);
             var mustacheData = Parser.parse(message);
 
-            var url = "/_view/menus/environmentMenu.mustache";
-            $.get(url, function(template) {
+            $.get(URL, function(template) {
                 cachedHTML = Mustache.render(template, mustacheData);
                 if (showing) {
                     $('#menu-injection').html(cachedHTML);
+                    enableMouse();
                 }
             });
         });
