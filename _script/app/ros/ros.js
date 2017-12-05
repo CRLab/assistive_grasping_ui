@@ -30,7 +30,7 @@ define(function () {
 
         // Topics and services to connect to
         validActions: function () {             return topic(topics.VALID_ACTIONS); },
-        validActionsSrv: function () {          return service(topics.VALID_ACTIONS_SRV); },   // done, but small todo
+        validActionsSrv: function () {          return service(topics.VALID_ACTIONS_SRV); },
         selectedAction: function () {           return topic(topics.SELECTED_ACTION); },
         executeAction: function () {            return topic(topics.EXECUTE_ACTION); },
 

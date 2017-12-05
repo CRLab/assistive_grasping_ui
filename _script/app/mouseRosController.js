@@ -1,3 +1,5 @@
+// TODO: Need to conform class to fit with other controllers
+
 define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     // VAR *************************************************************************

@@ -16,19 +16,29 @@ The Assistive Grasping UI that is needed for running the medical campus Mico exp
 
 The entire UI can be populated and controlled over ROS, as described below:
 
-### Environments and Inputs Menu
+### Populating Commands Menu, Environments Menu, and Inputs Menu
 
 To initially load the data for these menus, ensure the following services are running:
 
 ```
-\valid_environments_service
-\valid_inputs_service
+/valid_commands_service
+/valid_environments_service
+/valid_inputs_service
 ```
 
 After the menus are inititally loaded, you can broadcast any changes to the menus respectively by 
 sending messages over the following topics:
 
 ```
-\valid_environments
-\valid_inputs
+/valid_commands
+/valid_environments
+/valid_inputs
 ```
+
+### Controlling Commands Menu
+
+To simulate clicking a command in the Commands Menu, send a message over the topic
+`/valid_commands` and set the `parent` variable in the message to the ID of the command to be clicked.
+
+To simulate highlighting a command, send a message over the topic
+`/currently_selected_command` and set the string in the message to the ID of the command to be highlighted. 

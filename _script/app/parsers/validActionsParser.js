@@ -5,12 +5,13 @@ define(function () {
     return {
 
         // Parse valid options into mustache formatted data
-        parse: function (validActions) {
+        parse: function (data) {
             var menuData = {"buttons": []};
-            for (var i in validActions) {
-                menuData.buttons.push({"buttonTitle": validActions[i]});
+            for (var i in data.commands) {
+                menuData.buttons.push({"buttonTitle": data.commands[i]});
             }
-            menuData.numButtons = validActions.length;
+            menuData.numButtons = data.commands.length;
+            menuData.selectedButtonTitle = data.parent;
             return menuData;
         }
     };

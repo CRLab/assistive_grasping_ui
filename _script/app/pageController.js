@@ -1,5 +1,5 @@
-define(['jquery', 'mustache', 'app/actions-menu/actionsMenu', 'app/actions-menu/actionsSubmenu', 'app/inputs-menu/inputsMenu', 'app/environment-menu/environmentMenu'],
-        function ($, Mustache, ActionsMenu, ActionsSubmenu, InputsMenu, EnvironmentMenu) {
+define(['jquery', 'mustache', 'app/actions-menu/actionsMenuController', 'app/inputs-menu/inputsMenuController', 'app/environment-menu/environmentMenuController'],
+        function ($, Mustache, ActionsMenu, InputsMenu, EnvironmentMenu) {
 
     // VAR **************************************************************************
 
@@ -27,9 +27,9 @@ define(['jquery', 'mustache', 'app/actions-menu/actionsMenu', 'app/actions-menu/
     // MAIN **************************************************************************
 
     $(document).ready(function() {
-        // Load page controls and mask for actions menu.
         loadPageControls();
         loadMask(PAGE_CONTROL_IDS.ACTIONS);
+        loadMenu(PAGE_CONTROL_IDS.ACTIONS);
     });
 
     // FUNC **************************************************************************
@@ -65,17 +65,14 @@ define(['jquery', 'mustache', 'app/actions-menu/actionsMenu', 'app/actions-menu/
 
     // Load menu for a specific page
     function loadMenu(menuType) {
-        // TODO: Fill in
         EnvironmentMenu.setShowing(false);
         InputsMenu.setShowing(false);
+        ActionsMenu.setShowing(false);
 
         switch (menuType) {
             case PAGE_CONTROL_IDS.ACTIONS:
-                if (ActionsMenu.showing()) {
-                    ActionsMenu.loadCached();
-                } else {
-                    ActionsSubmenu.loadCached();
-                }
+                ActionsMenu.setShowing(true);
+                ActionsMenu.load();
                 break;
 
             case PAGE_CONTROL_IDS.ENVIRONMENTS:
