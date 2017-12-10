@@ -9,7 +9,7 @@ The Assistive Grasping UI that is needed for running the medical campus Mico exp
 # Run
 1) Start ROS by opening a terminal window and running `roscore`
 2) Start Rosbridge by opening another terminal window and running `roslaunch rosbridge_server rosbridge_websocket.launch`
-3) In yet another terminal window, navigate to the project root and run `node index.js`
+3) In yet another terminal window, navigate to the project root and run `node assistiveGraspingUI.js`
 
 
 # Docs

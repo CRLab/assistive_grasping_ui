@@ -2,5 +2,6 @@
 require(['./common'], function (common) {
     require(['app/pageController']);
     require(['app/mouseRosController']);
+    require(['app/cameraController']);
     // require(['app/pointCloud']);
 });
