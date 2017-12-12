@@ -1,0 +1,28 @@
+{
+  "name": "crlab-assistive-grasping",
+  "description": "UI for the MICO experiments.",
+  "main": "index.js",
+  "authors": [
+    "Gavi Rawson <gavirawson@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/CRLab/assistive_grasping_ui",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "requirejs": "^2.3.5",
+    "mustache.js": "^2.3.0",
+    "eventemitter2": "^4.1.0",
+    "ros3d": "https://github.com/CRLab/ros3djs.git#develop",
+    "three.js": "threejs#*",
+    "roslib": "roslibjs#^0.19.0",
+    "threex-colladaloader": "^0.0.1"
+  }
+}

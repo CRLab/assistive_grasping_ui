@@ -3,13 +3,14 @@ The Assistive Grasping UI that is needed for running the medical campus Mico exp
 
 # Install
 1) Install node and npm, then run `npm install`
+2) Install bower with `npm install -g bower`, then run `bower install` 
 2) Install ROS (http://wiki.ros.org/ROS/Installation)
 3) Install Rosbridge (http://wiki.ros.org/rosbridge_suite/Tutorials/RunningRosbridge)
 
 # Run
 1) Start ROS by opening a terminal window and running `roscore`
 2) Start Rosbridge by opening another terminal window and running `roslaunch rosbridge_server rosbridge_websocket.launch`
-3) In yet another terminal window, navigate to the project root and run `node assistiveGraspingUI.js`
+3) In yet another terminal window, navigate to the project root and run `node scripts/assistiveGraspingUI.js`
 
 
 # Docs

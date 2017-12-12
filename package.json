@@ -2,7 +2,7 @@
   "name": "crlab-assistive-grasping",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "scripts/assistiveGraspingUI.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,6 +15,8 @@
     "mustache": "^2.3.0",
     "mustache-express": "^1.2.5",
     "requirejs": "^2.3.5",
-    "rosnodejs": "^2.1.1"
+    "rosnodejs": "^2.1.1",
+    "bower": "^1.8.2",
+    "bower-requirejs": "^1.2.0"
   }
 }

@@ -24,6 +24,7 @@ rosnodejs.initNode('/assistive_grasping_ui', {}).then(function() {
     app.use("/_script", express.static(__dirname + '/../_script'));
     app.use("/_assets", express.static(__dirname + '/../_assets'));
     app.use("/_view", express.static(__dirname + '/../_view'));
+    app.use("/bower_components", express.static(__dirname + "/../bower_components"));
     app.use("/package/:packageName/*", function(req, res){
 
         // Get absolute path to package from result
