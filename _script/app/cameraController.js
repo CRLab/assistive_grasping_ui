@@ -33,7 +33,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
         var urdfClient = new ROS3D.UrdfClient({
             ros : ros,
             tfClient : tfClient,
-            path : '/resources/',
+            path : '/package/',
             rootObject : viewer.scene,
             loader : ROS3D.COLLADA_LOADER
         });
