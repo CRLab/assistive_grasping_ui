@@ -1,6 +1,4 @@
 #camera-container {
-    background-image: url("/_assets/img/flowers.jpg");
-    background-size: cover;
     width: calc(100% - 150px);
     height: calc(100% - 40px);
     float: right;

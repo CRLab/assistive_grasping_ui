@@ -4,4 +4,4 @@ node_modules/*
 .idea/*
 *.iml
 *._*
-
+bower_components/*

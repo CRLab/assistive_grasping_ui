@@ -3,15 +3,19 @@
 define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     // VAR *************************************************************************
-    $(function() {
-        var ros = Ros.init();
-        console.log(ros);
+
+    var ros = Ros.init();
+    var viewer = null;
+
+    // FUNC *************************************************************************
+
+    function initViewer() {
 
         // Create the main viewer.
-        var viewer = new ROS3D.Viewer({
+        viewer = new ROS3D.Viewer({
             divID : 'camera-container',
-            width : 800,
-            height : 600,
+            width : $(document).width() - $("#menu-container").width(),
+            height : $(document).height(),
             antialias : true
         });
         // Setup a client to listen to TFs.
@@ -48,7 +52,19 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
             topic : '/objrec_node/recognized_objects_markers',
             rootObject : viewer.scene
         });
+    }
+
+    // MAIN *************************************************************************
+
+    $(function() {
+        initViewer()
     });
 
+    // Resize viewer on window resize
+    $(window).resize(function() {
+        if (viewer !== null) {
+            viewer.resize($(document).width() - $("#menu-container").width(), $(document).height())
+        }
+    });
 
 });
