@@ -16,6 +16,19 @@
     box-shadow: 0px 0px 45px 0px rgba(0,0,0,0.91);
 }
 
+#menu-loading-overlay {
+    display: none;
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.sk-rotating-plane {
+    background-color: white;
+}
+
 #menu-container  {
     height: 100%;
     width: 150px;

@@ -15,7 +15,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
         viewer = new ROS3D.Viewer({
             divID : 'camera-container',
             width : $(document).width() - $("#menu-container").width(),
-            height : $(document).height(),
+            height : $("#menu-container").height() - $("#status-bar").height(),
             antialias : true
         });
         // Setup a client to listen to TFs.
@@ -63,7 +63,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
     // Resize viewer on window resize
     $(window).resize(function() {
         if (viewer !== null) {
-            viewer.resize($(document).width() - $("#menu-container").width(), $(document).height())
+            viewer.resize($(document).width() - $("#menu-container").width(), $("#menu-container").height() - $("#status-bar").height())
         }
     });
 

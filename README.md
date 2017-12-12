@@ -42,4 +42,11 @@ To simulate clicking a command in the Commands Menu, send a message over the top
 `/valid_commands` and set the `parent` variable in the message to the ID of the command to be clicked.
 
 To simulate highlighting a command, send a message over the topic
-`/currently_selected_command` and set the string in the message to the ID of the command to be highlighted. 
+`/currently_selected_command` and set the string in the message to the ID of the command to be highlighted.
+
+### UI State
+
+If at any time you would like to trigger a loading icon and disable user interaction, publish to the 
+topic `/crui_bot_status` a string that is either `loading` to trigger the loading state or `ready`
+to end it. 
+ 

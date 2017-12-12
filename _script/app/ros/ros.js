@@ -10,6 +10,8 @@ define(function () {
         VALID_ACTIONS_SRV:      ["/valid_commands_service", "external_controller_msgs/ValidCommandsService"],
         SELECTED_ACTION:        ["/currently_selected_command", "std_msgs/String"],
         EXECUTE_ACTION:         ["/execute_command", "std_msgs/String"],
+        RAW_EXECUTE_ACTION:     ["/raw_execute_command", "external_controller_msgs/RawExecuteCommand"],
+        RAW_SELECTED_ACTION:     ["/raw_currently_selected_command", "external_controller_msgs/RawCurrentlySelectedCommand"],
 
         VALID_ENVIRONMENTS:     ["/valid_environments", "external_controller_msgs/ValidEnvironments"],
         VALID_ENVIRONMENTS_SRV: ["/valid_environments_service", "external_controller_msgs/ValidEnvironmentsService"],
@@ -33,6 +35,8 @@ define(function () {
         validActionsSrv: function () {          return service(topics.VALID_ACTIONS_SRV); },
         selectedAction: function () {           return topic(topics.SELECTED_ACTION); },
         executeAction: function () {            return topic(topics.EXECUTE_ACTION); },
+        rawSelectedAction: function () {        return topic(topics.RAW_SELECTED_ACTION); },   // need to test
+        rawExecuteAction: function () {         return topic(topics.RAW_EXECUTE_ACTION); },   // need to test
 
         validEnvironments: function () {        return topic(topics.VALID_ENVIRONMENTS); },
         validEnvironmentsSrv: function () {     return service(topics.VALID_ENVIRONMENTS_SRV); },
@@ -40,7 +44,8 @@ define(function () {
 
         validInputs: function () {              return topic(topics.VALID_INPUTS); },
         validInputsSrv: function () {           return service(topics.VALID_INPUTS_SRV); },
-        setInputsSrv: function () {             return service(topics.SET_INPUT_SRV); }   // not done
+        setInputsSrv: function () {             return service(topics.SET_INPUT_SRV); },   // not done
+        cruiBotStatus: function () {            return topic(topics.CRUI_BOT_STATUS); }
     };
 
     // FUNC **************************************************************************
