@@ -36,15 +36,15 @@ define(function () {
         selectedAction: function () {           return topic(topics.SELECTED_ACTION); },
         executeAction: function () {            return topic(topics.EXECUTE_ACTION); },
         rawSelectedAction: function () {        return topic(topics.RAW_SELECTED_ACTION); },  
-        rawExecuteAction: function () {         return topic(topics.RAW_EXECUTE_ACTION); },   // need to test
+        rawExecuteAction: function () {         return topic(topics.RAW_EXECUTE_ACTION); },
 
         validEnvironments: function () {        return topic(topics.VALID_ENVIRONMENTS); },
         validEnvironmentsSrv: function () {     return service(topics.VALID_ENVIRONMENTS_SRV); },
-        setEnvironmentSrv: function () {        return service(topics.SET_ENVIRONMENT_SRV); },   // not done
+        setEnvironmentSrv: function () {        return service(topics.SET_ENVIRONMENT_SRV); },
 
         validInputs: function () {              return topic(topics.VALID_INPUTS); },
         validInputsSrv: function () {           return service(topics.VALID_INPUTS_SRV); },
-        setInputsSrv: function () {             return service(topics.SET_INPUT_SRV); },   // not done
+        setInputsSrv: function () {             return service(topics.SET_INPUT_SRV); },
         cruiBotStatus: function () {            return topic(topics.CRUI_BOT_STATUS); }
     };
 

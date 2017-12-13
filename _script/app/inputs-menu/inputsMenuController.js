@@ -7,6 +7,7 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], f
     const BUTTON_OFF_CLASS = "off";
     const URL = "/_view/menus/inputsMenu.mustache";
 
+    const setInput = Ros.setInputsSrv();
     var showing = false;    // True if page is showing
     var cachedHTML = null;
     var validInputs = null; // ROS topic
@@ -85,8 +86,24 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], f
 
     function enableMouse() {
         $(BUTTON_CLASS).click(function () {
-            $(this).children(":first").toggleClass(BUTTON_ON_CLASS);
-            $(this).children(":first").toggleClass(BUTTON_OFF_CLASS);
+
+            var selectedButton = $(this);
+
+            // Init service and request
+            var request = new ROSLIB.ServiceRequest({
+                "input_source": selectedButton.prev().attr("id"),
+                "status": selectedButton.children(":first").hasClass(BUTTON_ON_CLASS)
+            });
+
+            // Call service to pass on button status
+            setInput.callService(request, function(result) {
+                console.log("Set input service result:");
+                console.log(result);
+                if (result.result === true) {
+                    selectedButton.children(":first").toggleClass(BUTTON_ON_CLASS);
+                    selectedButton.children(":first").toggleClass(BUTTON_OFF_CLASS);
+                }
+            });
         });
     }
 });

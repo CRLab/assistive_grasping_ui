@@ -7,6 +7,7 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validEnvironmentsParse
     const BUTTON_OFF_CLASS = "off";
     const URL = "/_view/menus/environmentMenu.mustache";
 
+    const setEnv = Ros.setEnvironmentSrv();
     var showing = false;    // True if page is showing
     var cachedHTML = null;
     var validEnvironments = null;   // ROS topic
@@ -84,19 +85,33 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validEnvironmentsParse
 
     function enableMouse() {
         $(BUTTON_CLASS).click(function () {
+            var selectedButton = $(this);
 
-            // Reset on/off tags
-            $(BUTTON_CLASS).find('*').each(function() {
-                $(this).addClass(BUTTON_OFF_CLASS);
-                $(this).removeClass(BUTTON_ON_CLASS);
+            // Init service and request
+            var request = new ROSLIB.ServiceRequest({
+                "environment": selectedButton.children().eq(1).attr("id"),
+                "status": true
             });
 
-            // Turn on clicked radio button
-            $(this).find('*').each(function() {
-                $(this).addClass(BUTTON_ON_CLASS);
-                $(this).removeClass(BUTTON_OFF_CLASS);
-            });
+            // Call service to pass on button status
+            setEnv.callService(request, function(result) {
+                console.log("Set input service result:");
+                console.log(result);
 
+                if (result.result === true) {
+                    // Reset on/off tags
+                    $(BUTTON_CLASS).find('*').each(function() {
+                        $(this).addClass(BUTTON_OFF_CLASS);
+                        $(this).removeClass(BUTTON_ON_CLASS);
+                    });
+
+                    // Turn on clicked radio button
+                    selectedButton.find('*').each(function() {
+                        $(this).addClass(BUTTON_ON_CLASS);
+                        $(this).removeClass(BUTTON_OFF_CLASS);
+                    });
+                }
+            });
         });
     }
 });

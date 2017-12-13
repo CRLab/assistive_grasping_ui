@@ -36,6 +36,19 @@ sending messages over the following topics:
 /valid_inputs
 ```
 
+### Toggling Inputs and Environments
+
+When a user changes the status of an input or environment by clicking a toggle or radio button, a message will 
+be sent to the respective services:
+
+```
+/set_environment_service
+/set_input_service
+```
+
+If the service responds with `result=true`, the input or environment will change to the desired status, but if false, 
+the status will not change. 
+
 ### Controlling Commands Menu
 
 To simulate clicking a command in the Commands Menu, send a message over the topic
