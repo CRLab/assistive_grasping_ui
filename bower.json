@@ -27,6 +27,7 @@
     "SpinKit": "spinkit#^1.2.5"
   },
   "resolutions": {
-    "eventemitter2": "^4.1.0"
+    "eventemitter2": "^4.1.0",
+    "requirejs": "^2.3.5"
   }
 }

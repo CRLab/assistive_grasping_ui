@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(assistive_grasping_ui)
 
+execute_process(COMMAND bash -c "cd ${CMAKE_SOURCE_DIR}; npm install; bower install")
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
