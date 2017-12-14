@@ -25,5 +25,8 @@
     "roslib": "roslibjs#^0.19.0",
     "threex-colladaloader": "^0.0.1",
     "SpinKit": "spinkit#^1.2.5"
+  },
+  "resolutions": {
+    "eventemitter2": "^4.1.0"
   }
 }

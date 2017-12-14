@@ -12,12 +12,24 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
     function initViewer() {
 
         // Create the main viewer.
+        var menu_container = $("#menu-container");
+        var status_bar = $("#status-bar");
+
+        var width = $(document).width() - menu_container.width();
+        var height = menu_container.height() - status_bar.height();
+
         viewer = new ROS3D.Viewer({
             divID : 'camera-container',
-            width : $(document).width() - $("#menu-container").width(),
-            height : $("#menu-container").height() - $("#status-bar").height(),
-            antialias : true
+            width : width,
+            height : height,
+            antialias : true,
+            cameraPose: {
+                x: 1.1536573326608544,
+                y: -1.7192485002288223,
+                z: 1.7035434136931575
+            }
         });
+
         // Setup a client to listen to TFs.
         var tfClient = new ROSLIB.TFClient({
             ros : ros,
@@ -46,12 +58,19 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
             topic: '/filtered_pc'
         });
 
-        var markerArrayClient = new ROS3D.MarkerArrayClient({
+        var recognizedBlockMarkerArrayClient = new ROS3D.MarkerArrayClient({
             ros : ros,
             tfClient : tfClient,
-            topic : '/objrec_node/recognized_objects_markers',
+            topic : '/ui_recognized_objects',
             rootObject : viewer.scene
         });
+
+        var displayGraspMarkersArrayClient = new ROS3D.MarkerArrayClient({
+            ros : ros,
+            tfClient : tfClient,
+            topic : '/ui_current_grasp',
+            rootObject : viewer.scene
+        })
     }
 
     // MAIN *************************************************************************
@@ -62,7 +81,11 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     // Resize viewer on window resize
     $(window).resize(function() {
+
+
         if (viewer !== null) {
+            console.log(viewer.camera.position);
+
             viewer.resize($(document).width() - $("#menu-container").width(), $("#menu-container").height() - $("#status-bar").height())
         }
     });

@@ -39,9 +39,7 @@ define(['jquery', 'app/ros/ros', 'app/actions-menu/actionsMenu', 'app/parsers/va
         console.log(validActionsService);
 
         // service request
-        var request = new ROSLIB.ServiceRequest({
-            request : "null"
-        });
+        var request = new ROSLIB.ServiceRequest();
 
         // Service response
         validActionsService.callService(request, function(result) {

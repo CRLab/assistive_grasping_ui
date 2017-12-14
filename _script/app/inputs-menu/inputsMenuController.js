@@ -43,9 +43,7 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], f
 
         // Init service and request
         var validInputsService = Ros.validInputsSrv();
-        var request = new ROSLIB.ServiceRequest({
-            request : ""
-        });
+        var request = new ROSLIB.ServiceRequest();
 
         // Call service to initially load page
         validInputsService.callService(request, function(result) {
