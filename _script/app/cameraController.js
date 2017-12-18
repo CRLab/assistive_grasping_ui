@@ -62,14 +62,18 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
             ros : ros,
             tfClient : tfClient,
             topic : '/ui_recognized_objects',
-            rootObject : viewer.scene
+            path : '/package/',
+            rootObject : viewer.scene,
+            loader : ROS3D.COLLADA_LOADER
         });
 
         var displayGraspMarkersArrayClient = new ROS3D.MarkerArrayClient({
             ros : ros,
             tfClient : tfClient,
             topic : '/ui_current_grasp',
-            rootObject : viewer.scene
+            path : '/package/',
+            rootObject : viewer.scene,
+            loader : ROS3D.COLLADA_LOADER
         })
     }
 
