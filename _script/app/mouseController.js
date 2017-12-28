@@ -18,6 +18,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
             // click (attaching the event to #menu-injection will ensure it remains when menu page has changed)
             $("#menu-injection").on("click", button_classes[i], function () {
+                console.log("Execute command: " + $(this).attr("id"));
                 rawExecute.publish(new ROSLIB.Message({
                     "command": $(this).attr("id"),
                     "input_source": "mouse"
@@ -25,7 +26,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
                 // Hover in
             }).on("mouseenter", button_classes[i], function () {
-                console.log($(this).attr("id"));
+                console.log("Currently selected command: " + $(this).attr("id"));
                 rawSelected.publish(new ROSLIB.Message({
                     "command": $(this).attr("id"),
                     "input_source": "mouse"

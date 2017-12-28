@@ -3,7 +3,7 @@ The Assistive Grasping UI that is needed for running the medical campus Mico exp
 
 # Install
 1) Install node and npm, then run `npm install`
-2) Install bower with `npm install -g bower`, then run `bower install` 
+2) Install bower with `npm install -g bower`, then run `bower install`
 2) Install ROS (http://wiki.ros.org/ROS/Installation)
 3) Install Rosbridge (http://wiki.ros.org/rosbridge_suite/Tutorials/RunningRosbridge)
 
@@ -22,12 +22,12 @@ The entire UI can be populated and controlled over ROS, as described below:
 To initially load the data for these menus, ensure the following services are running:
 
 ```
-/valid_commands_service
-/valid_environments_service
-/valid_inputs_service
+/current_commands
+/current_environments
+/current_inputs
 ```
 
-After the menus are inititally loaded, you can broadcast any changes to the menus respectively by 
+After the menus are initially loaded, you can broadcast any changes to the menus respectively by
 sending messages over the following topics:
 
 ```
@@ -38,7 +38,7 @@ sending messages over the following topics:
 
 ### Toggling Inputs and Environments
 
-When a user changes the status of an input or environment by clicking a toggle or radio button, a message will 
+When a user changes the status of an input or environment by clicking a toggle or radio button, a message will
 be sent to the respective services:
 
 ```
@@ -46,8 +46,8 @@ be sent to the respective services:
 /set_input_service
 ```
 
-If the service responds with `result=true`, the input or environment will change to the desired status, but if false, 
-the status will not change. 
+If the service responds with `result=true`, the input or environment will change to the desired status, but if false,
+the status will not change.
 
 ### Controlling Commands Menu
 
@@ -59,7 +59,6 @@ To simulate highlighting a command, send a message over the topic
 
 ### UI State
 
-If at any time you would like to trigger a loading icon and disable user interaction, publish to the 
+If at any time you would like to trigger a loading icon and disable user interaction, publish to the
 topic `/crui_bot_status` a string that is either `loading` to trigger the loading state or `ready`
-to end it. 
- 
+to end it.

@@ -36,7 +36,6 @@ define(['jquery', 'app/ros/ros', 'app/actions-menu/actionsMenu', 'app/parsers/va
     // Request data to initially populate the page
     function requestData() {
         var validActionsService = Ros.validActionsSrv();
-        console.log(validActionsService);
 
         // service request
         var request = new ROSLIB.ServiceRequest();

@@ -85,11 +85,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     // Resize viewer on window resize
     $(window).resize(function() {
-
-
         if (viewer !== null) {
-            console.log(viewer.camera.position);
-
             viewer.resize($(document).width() - $("#menu-container").width(), $("#menu-container").height() - $("#status-bar").height())
         }
     });

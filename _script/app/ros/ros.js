@@ -7,18 +7,18 @@ define(function () {
     // value = [topicName, messageType]
     var topics = {
         VALID_ACTIONS:          ["/valid_commands", "external_controller_msgs/ValidCommands"],
-        VALID_ACTIONS_SRV:      ["/valid_commands_service", "external_controller_msgs/ValidCommands"],
+        VALID_ACTIONS_SRV:      ["/current_commands", "external_controller_msgs/CurrentCommands"],
         SELECTED_ACTION:        ["/currently_selected_command", "std_msgs/String"],
         EXECUTE_ACTION:         ["/execute_command", "std_msgs/String"],
         RAW_EXECUTE_ACTION:     ["/raw_execute_command", "external_controller_msgs/RawExecuteCommand"],
         RAW_SELECTED_ACTION:    ["/raw_currently_selected_command", "external_controller_msgs/RawCurrentlySelectedCommand"],
 
         VALID_ENVIRONMENTS:     ["/valid_environments", "external_controller_msgs/ValidEnvironments"],
-        VALID_ENVIRONMENTS_SRV: ["/valid_environments_service", "external_controller_msgs/ValidEnvironments"],
+        VALID_ENVIRONMENTS_SRV: ["/current_environments", "external_controller_msgs/CurrentEnvironments"],
         SET_ENVIRONMENT_SRV:    ["/set_environment_service", "external_controller_msg/SetEnvironment"],
 
         VALID_INPUTS:           ["/valid_inputs", "external_controller_msgs/ValidInputs"],
-        VALID_INPUTS_SRV:       ["/valid_inputs_service", "external_controller_msgs/ValidInputs"],
+        VALID_INPUTS_SRV:       ["/currentInputs", "external_controller_msgs/CurrentInputs"],
         SET_INPUT_SRV:          ["/set_input_service", "external_controller_msgs/SetInput"],
 
         CRUI_BOT_STATUS:        ["/crui_bot_status", "std_msgs/String"]
@@ -35,7 +35,7 @@ define(function () {
         validActionsSrv: function () {          return service(topics.VALID_ACTIONS_SRV); },
         selectedAction: function () {           return topic(topics.SELECTED_ACTION); },
         executeAction: function () {            return topic(topics.EXECUTE_ACTION); },
-        rawSelectedAction: function () {        return topic(topics.RAW_SELECTED_ACTION); },  
+        rawSelectedAction: function () {        return topic(topics.RAW_SELECTED_ACTION); },
         rawExecuteAction: function () {         return topic(topics.RAW_EXECUTE_ACTION); },
 
         validEnvironments: function () {        return topic(topics.VALID_ENVIRONMENTS); },
