@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"use strict";
 
 var express = require('express');
 var app = express();
@@ -9,7 +10,7 @@ var path = require('path');
 // Because this file is in scripts we need to access 1 folder up
 
 rosnodejs.initNode('/assistive_grasping_ui', {}).then(function() {
-    const nh = rosnodejs.nh;
+    // const nh = rosnodejs.nh;
 
     rosnodejs.log.info("Running from " + __dirname);
 

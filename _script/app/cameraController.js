@@ -1,4 +1,5 @@
 // TODO: Need to conform class to fit with other controllers
+"use strict";
 
 define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
@@ -6,6 +7,8 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     var ros = Ros.init();
     var viewer = null;
+    var pointCloudSubscriber = null;
+
 
     // FUNC *************************************************************************
 
@@ -27,8 +30,12 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
                 x: 1.1536573326608544,
                 y: -1.7192485002288223,
                 z: 1.7035434136931575
-            }
+            },
+            background : '#ffffff'
         });
+
+        // Purely for debugging purposes
+        window.viewer = viewer;
 
         // Setup a client to listen to TFs.
         var tfClient = new ROSLIB.TFClient({
@@ -50,7 +57,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
             loader : ROS3D.COLLADA_LOADER
         });
 
-        var cloudClient = new ROS3D.PointCloud2({
+        pointCloudSubscriber = new ROS3D.PointCloud2({
             ros: ros,
             tfClient: tfClient,
             rootObject: viewer.scene,
@@ -67,20 +74,32 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
             loader : ROS3D.COLLADA_LOADER
         });
 
-        var displayGraspMarkersArrayClient = new ROS3D.MarkerArrayClient({
+        var displayGraspMarkerArrayClient = new ROS3D.MarkerArrayClient({
             ros : ros,
             tfClient : tfClient,
             topic : '/ui_current_grasp',
             path : '/package/',
             rootObject : viewer.scene,
             loader : ROS3D.COLLADA_LOADER
-        })
+        });
+
+        var displayPlacePositionMarkerArrayClient = new ROS3D.MarkerArrayClient({
+            ros : ros,
+            tfClient : tfClient,
+            topic : '/ui_place_positions',
+            path : '/package/',
+            rootObject : viewer.scene,
+            loader : ROS3D.COLLADA_LOADER
+        });
+
+        // Request to rebroadcast the scene after the scene listeners have been created
+        Ros.rebroadcastSceneService().callService();
     }
 
     // MAIN *************************************************************************
 
     $(function() {
-        initViewer()
+        initViewer();
     });
 
     // Resize viewer on window resize
@@ -89,5 +108,10 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
             viewer.resize($(document).width() - $("#menu-container").width(), $("#menu-container").height() - $("#status-bar").height())
         }
     });
+
+    return {
+        viewer: viewer,
+        cloudClient: pointCloudSubscriber
+    };
 
 });

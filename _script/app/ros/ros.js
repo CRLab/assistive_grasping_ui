@@ -21,14 +21,16 @@ define(function () {
         VALID_INPUTS_SRV:       ["/currentInputs", "external_controller_msgs/CurrentInputs"],
         SET_INPUT_SRV:          ["/set_input_service", "external_controller_msgs/SetInput"],
 
-        CRUI_BOT_STATUS:        ["/crui_bot_status", "std_msgs/String"]
+        CRUI_BOT_STATUS:        ["/crui_bot_status", "std_msgs/String"],
+        LOG_MESSAGE:            ["/update_message", "std_msgs/String"],
+        REBROADCAST_SCENE_SRV:  ["/rebroadcast_scene", "std_srvs/Empty"]
     };
 
 
     // MODULE ************************************************************************
 
     return {
-        init: function () { return init() },
+        init: function () { return init(); },
 
         // Topics and services to connect to
         validActions: function () {             return topic(topics.VALID_ACTIONS); },
@@ -45,13 +47,15 @@ define(function () {
         validInputs: function () {              return topic(topics.VALID_INPUTS); },
         validInputsSrv: function () {           return service(topics.VALID_INPUTS_SRV); },
         setInputsSrv: function () {             return service(topics.SET_INPUT_SRV); },
-        cruiBotStatus: function () {            return topic(topics.CRUI_BOT_STATUS); }
+        cruiBotStatus: function () {            return topic(topics.CRUI_BOT_STATUS); },
+        logMessage: function() {                return topic(topics.LOG_MESSAGE); },
+        rebroadcastSceneService: function() {   return service(topics.REBROADCAST_SCENE_SRV); }
     };
 
     // FUNC **************************************************************************
 
     function init() {
-        if (ros !== null) { return ros }
+        if (ros !== null) { return ros; }
 
         ros = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
         ros.on('connection', function () {  console.log('Connected to websocket server.'); });
