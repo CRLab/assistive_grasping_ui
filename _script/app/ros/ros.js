@@ -18,7 +18,7 @@ define(function () {
         SET_ENVIRONMENT_SRV:    ["/set_environment_service", "external_controller_msg/SetEnvironment"],
 
         VALID_INPUTS:           ["/valid_inputs", "external_controller_msgs/ValidInputs"],
-        VALID_INPUTS_SRV:       ["/currentInputs", "external_controller_msgs/CurrentInputs"],
+        VALID_INPUTS_SRV:       ["/current_inputs", "external_controller_msgs/CurrentInputs"],
         SET_INPUT_SRV:          ["/set_input_service", "external_controller_msgs/SetInput"],
 
         CRUI_BOT_STATUS:        ["/crui_bot_status", "std_msgs/String"],
