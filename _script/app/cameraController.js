@@ -94,6 +94,7 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
         // Request to rebroadcast the scene after the scene listeners have been created
         Ros.rebroadcastSceneService().callService();
+
     }
 
     // MAIN *************************************************************************
@@ -110,8 +111,13 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
     });
 
     return {
-        viewer: viewer,
-        cloudClient: pointCloudSubscriber
+        togglePointCloud: function(on) {
+            if (on) { pointCloudSubscriber.subscribe(); }
+            else    { pointCloudSubscriber.unsubscribe(); }
+        },
+        setBackgroundColor: function(color) {
+            viewer.setBackgroundColor(color);
+        }
     };
 
 });

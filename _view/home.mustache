@@ -37,11 +37,15 @@
 
 <!-- STATUS BAR -->
 <div id="status-bar">
-    <div id="page-title" class="center-y no-select">ASSISTIVE GRASPING</div>
+    <div id="page-title" class="center-xy no-select">ASSISTIVE GRASPING</div>
+        <img id="settings-button" class="no-select settings-icon center-y" src="/_assets/img/settings@3x.png">
+    </div>
 </div>
 
 <!-- CAMERA VIEWPORT -->
-<div id="camera-container"></div>
+<div id="camera-container">
+    {{>settings}}
+</div>
 
 <!-- MENU BUTTONS -->
 <div id="menu-injection"></div>

@@ -1,0 +1,12 @@
+#settings-container {
+    display: none;
+    height: auto;
+    width: 150px;
+    position: absolute;
+    right: 0;
+    z-index: 6;
+    background-color: var(--darkPurple2);
+    -webkit-box-shadow: -7px 0px 66px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: -7px 0px 66px -12px rgba(0,0,0,0.75);
+    box-shadow: -7px 0px 66px -12px rgba(0,0,0,0.75);
+}

@@ -2,6 +2,7 @@
 require(['./config'], function (common) {
     require(['app/stateController']);
     require(['app/pageController']);
+    require(['app/settingsController']);
     // require(['app/debug_mouseController']);
     require(['app/mouseController']);
     require(['app/cameraController']);

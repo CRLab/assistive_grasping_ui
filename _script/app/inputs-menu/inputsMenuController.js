@@ -1,4 +1,4 @@
-define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser', 'app/cameraController'], function ($, Mustache, Ros, Parser, CameraController) {
+define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], function ($, Mustache, Ros, Parser) {
 
     // VAR **************************************************************************
 
@@ -88,27 +88,23 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser', 'a
             var id = selectedButton.prev().attr("id");
             var isOn = selectedButton.children(":first").hasClass(BUTTON_ON_CLASS);
 
-            if(id === "set-background-dark") {
-                CameraController.viewer.backgroundColor = isOn? '#111111' : '#ffffff';
-            } else if(id === "show-pointcloud") {
-                isOn? CameraController.cloudClient.subscribe() : window.cloudClient.unsubscribe();
-            } else {
-                // Init service and request
-                var request = new ROSLIB.ServiceRequest({
-                    "input_source": id,
-                    "status": isOn
-                });
 
-                // Call service to pass on button status
-                setInput.callService(request, function(result) {
-                    console.log("Set input service result:");
-                    console.log(result);
-                    if (result.result === true) {
-                        selectedButton.children(":first").toggleClass(BUTTON_ON_CLASS);
-                        selectedButton.children(":first").toggleClass(BUTTON_OFF_CLASS);
-                    }
-                });
-            }
+            // Init service and request
+            var request = new ROSLIB.ServiceRequest({
+                "input_source": id,
+                "status": isOn
+            });
+
+            // Call service to pass on button status
+            setInput.callService(request, function(result) {
+                console.log("Set input service result:");
+                console.log(result);
+                if (result.result === true) {
+                    selectedButton.children(":first").toggleClass(BUTTON_ON_CLASS);
+                    selectedButton.children(":first").toggleClass(BUTTON_OFF_CLASS);
+                }
+            });
+
         });
     }
 });
