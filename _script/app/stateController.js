@@ -2,30 +2,10 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
 
     // VAR **************************************************************************
 
+    const NOTIFICATION_IN = "0.5s ease-in 0s 1 normal forwards running notification-slide-in";
+    const NOTIFICATION_OUT = "0.5s ease-in 0s 1 normal forwards running notification-slide-out";
     const elementID = "#menu-loading-overlay";
     var status = Ros.cruiBotStatus();
-
-    // FUNCTION **********************************************************************
-
-    function showNotificationBar(message, duration, bgColor, txtColor, height) {
-
-        /*set default values*/
-        duration = typeof duration !== 'undefined' ? duration : 1500;
-        bgColor = typeof bgColor !== 'undefined' ? bgColor : "#F4E0E1";
-        txtColor = typeof txtColor !== 'undefined' ? txtColor : "#A42732";
-        height = typeof height !== 'undefined' ? height : 40;
-        /*create the notification bar div if it doesn't exist*/
-        if ($('#notification-bar').size() == 0) {
-            var HTMLmessage = "<div class='notification-message' style='text-align:center; line-height: " + height + "px;'> " + message + " </div>";
-            $('body').prepend("<div id='notification-bar' style='display:none; width:100%; height:" + height + "px; background-color: " + bgColor + "; position: fixed; z-index: 100; color: " + txtColor + ";border-bottom: 1px solid " + txtColor + ";'>" + HTMLmessage + "</div>");
-        }
-        /*animate the bar*/
-        $('#notification-bar').slideDown(function() {
-            setTimeout(function() {
-                $('#notification-bar').slideUp(function() {});
-            }, duration);
-        });
-    }
 
     // MAIN **************************************************************************
 
@@ -53,8 +33,15 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
     Ros.logMessage().subscribe(function (message) {
         var data = message.data;
         console.log("New message: " + data);
+        $("#notification-text").html(data);
+        $("#notification-container").css("animation", NOTIFICATION_IN);
+    });
 
-        showNotificationBar(data);
+
+    $("#notification-container").ready(function() {
+        $("#notification-close-button").click(function() {
+            $("#notification-container").css("animation", NOTIFICATION_OUT);
+        });
     });
 });
 
