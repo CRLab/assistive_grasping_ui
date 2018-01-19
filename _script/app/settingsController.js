@@ -15,7 +15,7 @@ define(['jquery', "app/cameraController"], function ($, Camera) {
 
         enableSettingsButton();
 
-        $(".input-toggle-background").click(function () {
+        $("#settings-container .input-toggle-background").click(function () {
 
             var selectedButton = $(this);
             var id = selectedButton.attr("id");

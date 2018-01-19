@@ -82,7 +82,7 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validInputsParser'], f
 
 
     function enableMouse() {
-        $(BUTTON_CLASS).click(function () {
+        $("#inputs-menu-wrapper " + BUTTON_CLASS).click(function () {
 
             var selectedButton = $(this);
             var id = selectedButton.prev().attr("id");

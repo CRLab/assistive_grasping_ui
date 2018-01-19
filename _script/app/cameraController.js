@@ -113,10 +113,23 @@ define(['jquery', 'app/ros/ros'], function ($, Ros) {
     return {
         togglePointCloud: function(on) {
             if (on) { pointCloudSubscriber.subscribe(); }
-            else    { pointCloudSubscriber.unsubscribe(); }
+            else    {
+                pointCloudSubscriber.unsubscribe();
+                var msg = {
+                    "header": {
+                        "frame_id": "/kinect2_rgb_optical_frame"
+                    },
+                    "data": {
+                        "buffer": ""
+                    },
+                    "height": 0,
+                    "width": 0
+                };
+                pointCloudSubscriber.processMessage(msg);
+            }
         },
         setBackgroundColor: function(color) {
-            viewer.setBackgroundColor(color);
+            viewer.renderer.setClearColor(color);
         }
     };
 
