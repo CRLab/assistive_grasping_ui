@@ -42,9 +42,7 @@ define(['jquery', 'mustache', 'app/ros/ros', 'app/parsers/validEnvironmentsParse
 
         // Init service and request
         var validEnvironmentsService = Ros.validEnvironmentsSrv();
-        var request = new ROSLIB.ServiceRequest({
-            request : ""
-        });
+        var request = new ROSLIB.ServiceRequest();
 
         // Call service to initially load page
         validEnvironmentsService.callService(request, function(result) {
